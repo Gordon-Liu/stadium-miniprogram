@@ -1,0 +1,47 @@
+<!--pages/home/home.wxml-->
+<view class="main">
+    <view class="up">
+        <image mode="aspectFill" src="/images/home-bg.jpg" />
+    </view>
+    <view class="down">
+        <view class="menu card-project shadow-project">
+            <view
+                wx:for="{{menu}}"
+                wx:key="key"
+                bindtap="url"
+                data-url="../../news/index/news_index?id={{index}}" class="item">
+                <view class="item-inner">
+                    <view class="img">
+                        <image src="/images/icons/menu/menu-{{index}}.png" />
+                    </view>
+                    <view class="title">{{item}}</view>
+                </view>
+            </view>
+        </view>
+
+        <!-- List Begin -->
+        <view
+            wx:if="{{!list}}"
+            class="margin-top load loading text-l load-project"></view>
+        <view
+            wx:if="{{list}}"
+            wx:for="{{list}}"   
+            class="item card-project shadow-project item-leftbig3"
+            bindtap="url"
+            data-url="../../{{item.type}}/detail/{{item.type}}_detail?id={{item._id}}">
+            <image mode="aspectFill" lazy-load="{{true}}" class="leftbig-left loading" src="{{item.pic}}"></image>
+            <view class="leftbig-right">
+                <view class="leftbig-title content-cut-one">{{item.title}}</view>
+                <view class="leftbig-desc">
+                    <text class="{{listMode=='leftbig3'?'content-cut-two':'content-cut-three'}}">{{item.desc}} </text>
+                </view>
+                <view class="data">
+                    <view class="meet-tag-list text-cut">
+                    </view>
+                    <view class="meet-status"><text wx:if="{{item.type=='meet'}}" class="icon-remind margin-right-xxs"></text>{{item.ext}}</view>
+                </view>
+            </view>
+        </view>
+        <!-- List END -->
+    </view>
+</view>

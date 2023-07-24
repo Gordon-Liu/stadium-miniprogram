@@ -1,0 +1,70 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/getOpenId/index",
+        "pages/getMiniProgramCode/index",
+        "pages/deployService/index",
+        "pages/createCollection/index",
+        "pages/uploadFile/index",
+        "pages/selectRecord/index",
+        "pages/updateRecord/index",
+        "pages/updateRecordResult/index",
+        "pages/updateRecordSuccess/index",
+        "pages/sumRecord/index",
+        "pages/sumRecordResult/index",
+        "pages/home/home",
+        "pages/calendar/calendar",
+        "pages/my/my",
+        "pages/stadium/stadium",
+        "pages/news/news",
+        "pages/admin/login/login",
+        "pages/admin/home/home"
+    ],
+    "window": {
+        "backgroundColor": "#F6F6F6",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#F6F6F6",
+        "navigationBarTitleText": "运动场馆预约",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "custom": false,
+        "backgroundColor": "#fefefe",
+        "color": "#999999",
+        "selectedColor": "#24C68A",
+        "list": [
+            {
+                "pagePath": "pages/home/home",
+                "text": "首页",
+                "iconPath": "/images/icons/tab-bar/home.png",
+                "selectedIconPath": "/images/icons/tab-bar/home-active.png"
+            },
+            {
+                "pagePath": "pages/stadium/stadium",
+                "text": "场馆动态",
+                "iconPath": "/images/icons/tab-bar/stadium.png",
+                "selectedIconPath": "/images/icons/tab-bar/stadium-active.png"
+            },
+            {
+                "pagePath": "pages/news/news",
+                "text": "运动常识",
+                "iconPath": "/images/icons/tab-bar/news.png",
+                "selectedIconPath": "/images/icons/tab-bar/news-active.png"
+            },
+            {
+                "pagePath": "pages/calendar/calendar",
+                "text": "活动日历",
+                "iconPath": "/images/icons/tab-bar/calendar.png",
+                "selectedIconPath": "/images/icons/tab-bar/calendar-active.png"
+            },
+            {
+                "pagePath": "pages/my/my",
+                "text": "我的",
+                "iconPath": "/images/icons/tab-bar/my.png",
+                "selectedIconPath": "/images/icons/tab-bar/my-active.png"
+            }
+        ]
+    },
+    "sitemapLocation": "sitemap.json",
+    "style": "v2"
+}
