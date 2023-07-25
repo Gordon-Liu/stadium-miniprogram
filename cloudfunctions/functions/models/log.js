@@ -26,15 +26,15 @@ LogModel.DB_STRUCTURE = {
 
 LogModel.TYPE = {
 	USER: 0,
-	MEET: 1,
+	STADIUM: 1,
 	NEWS: 2,
-	SYS: 99
+	SYSTEM: 99
 }
 LogModel.TYPE_DESC = {
 	USER: '用户',
-	MEET: '预约/活动',
+	STADIUM: '预约/活动',
 	NEWS: '内容/文章',
-	SYS: '系统'
+	SYSTEM: '系统'
 }
 
 module.exports = LogModel;

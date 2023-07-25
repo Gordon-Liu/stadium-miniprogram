@@ -29,8 +29,6 @@ async function checkImgAdmin(imgData, mine) {
  */
 async function checkImg(imgData, mine) {
 
-
-	let cloud = cloudBase.getCloud();
 	try {
 		const result = await cloud.openapi.security.imgSecCheck({
 			media: { 
@@ -105,7 +103,6 @@ async function checkText(txt) {
 	
 	if (!txt) return;
 
-	let cloud = cloudBase.getCloud();
 	try {
 		const result = await cloud.openapi.security.msgSecCheck({
 			content: txt

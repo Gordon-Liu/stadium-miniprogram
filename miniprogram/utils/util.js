@@ -10,3 +10,15 @@ export function isDefined(val) {
         return true;
 }
 
+ /**
+  * 取得data-数据 去掉驼峰式命名，改成纯小写式命名
+  * @param {*} e 
+  * @param {*} name 
+  * @param {*} child  是否获取穿透子元素的data-
+  */
+export function dataset(e, name, child = false) {
+    if (!child)
+        return e.currentTarget.dataset[name];
+    else
+        return e.target.dataset[name];
+}

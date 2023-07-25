@@ -1,0 +1,8 @@
+<!--pages/admin/news/add/add.wxml-->
+<view wx:if="{{!isLoad}}" class="margin-top load loading text-l text-grey"></view>
+<view class="main-admin" wx:if="{{isAdmin&&isLoad}}">
+	<import src="../../../../templates/news-form.wxml" />
+
+	<template is="newsForm"
+		data="{{contentDesc,cateIdOptions,imgMax,imgList,isPicCheck,formDesc,formUrl,formUrlFocus,formOrder,formOrderFocus,formType,formCateId,formCateIdFocus,formTitle,formTitleFocus,formContent,formContentFocus}}" />
+</view>

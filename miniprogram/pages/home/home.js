@@ -1,5 +1,5 @@
 // pages/home/home.js
-import Statium from '../../apis/stadium';
+import NewsApi from '../../apis/news';
 import { ApiCode } from '../../apis/cloud';
 
 Component({
@@ -18,16 +18,8 @@ Component({
         list: null
     },
     methods: {
-        async getSadiumList () { 
-			let opts = {
-				title: 'bar'
-			}
-			// await cloudHelper.callCloudSumbit('news/home_list', {}, opts).then(res => {
-			// 	this.setData({
-			// 		list: res.data
-			// 	});
-            // })
-            const res = await Statium.homeList();
+        async getNewsList () { 
+            const res = await NewsApi.homeList();
             if (res.code === ApiCode.SUCCESS) {
                 this.setData({
                     list: res.data
@@ -38,7 +30,7 @@ Component({
     },
     lifetimes: {
         attached() {
-            this.getSadiumList();
+            this.getNewsList();
         }
     }
 });

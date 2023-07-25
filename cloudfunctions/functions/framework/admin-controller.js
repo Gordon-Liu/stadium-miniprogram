@@ -1,5 +1,6 @@
 const Controller = require('./controller.js');
 const timeUtil = require('./time-util.js');
+const AdminService = require('../services/admin/admin.js');
 const AdminLogService = require('../services/admin/log.js');
 
 class AdminController extends Controller {
@@ -18,10 +19,10 @@ class AdminController extends Controller {
 	/** 是否管理员  */
 	async isAdmin() {
 		// 判断是否管理员
-		const service = new BaseAdminService();
+		const service = new AdminService();
 		const admin = await service.isAdmin(this._token);
 		this._admin = admin;
-		this._adminId = admin.id;
+		this._adminId = admin._id;
 	}
 
 	// /** 是否超级管理员  */

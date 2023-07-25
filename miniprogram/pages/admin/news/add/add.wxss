@@ -1,0 +1,3 @@
+/* pages/admin/news/add/add.wxss */
+@import '../../../../styles/admin.wxss';
+ 

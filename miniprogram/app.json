@@ -18,7 +18,10 @@
         "pages/stadium/stadium",
         "pages/news/news",
         "pages/admin/login/login",
-        "pages/admin/home/home"
+        "pages/admin/home/home",
+        "pages/admin/news/add/add",
+        "pages/admin/news/list/list",
+        "pages/admin/content/content"
     ],
     "window": {
         "backgroundColor": "#F6F6F6",
@@ -65,6 +68,13 @@
             }
         ]
     },
-    "sitemapLocation": "sitemap.json",
-    "style": "v2"
+    "useExtendedLib": {
+        "weui": true
+    },
+    "usingComponents": {
+        "cmpt-comm-list": "/cmpts/public/list/comm_list_cmpt",
+        "cmpt-picker": "/cmpts/public/picker/picker_cmpt",
+        "cmpt-modal": "/cmpts/public/modal/modal_cmpt"
+    },
+    "sitemapLocation": "sitemap.json"
 }

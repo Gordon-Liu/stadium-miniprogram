@@ -23,7 +23,7 @@ class AdminNewsController extends AdminController {
 
 	/** 资讯状态修改 */
 	async status() {
-		// await this.isAdmin();
+		await this.isAdmin();
 
 		// 数据校验
 		const rules = {
@@ -41,7 +41,7 @@ class AdminNewsController extends AdminController {
 
 	/** 资讯列表 */
 	async getList() {
-		// await this.isAdmin();
+		await this.isAdmin();
 
 		// 数据校验
 		const rules = {
@@ -57,10 +57,10 @@ class AdminNewsController extends AdminController {
 		};
 
 		// 取得数据
-		const input = this.validateData(rules);
+		const params = this.validateData(rules);
 
 		const service = new AdminNewsService();
-		const result = await service.getList(input);
+		const result = await service.getList(params);
 
 		return result;
 
@@ -89,7 +89,7 @@ class AdminNewsController extends AdminController {
 
 	/** 发布资讯信息 */
 	async insert() {
-		// await this.isAdmin();
+		await this.isAdmin();
 
         // 数据校验
         const type = this.getParameter('type');
@@ -99,15 +99,15 @@ class AdminNewsController extends AdminController {
             cateName: 'must|string|name=分类',
             order: 'must|int|min:1|max:9999|name=排序号',
             desc: 'must|string|min:10|max:200|name=简介',
-            type: 'must|int|in:0,1|name=是否外部文章'
+            type: 'must|int|in:0,1|name=是否外部文章',
         } : {
             title: 'must|string|min:4|max:50|name=标题',
-				cateId: 'must|id|name=分类',
-				cateName: 'must|string|name=分类',
-				order: 'must|int|min:1|max:9999|name=排序号',
-				desc: 'must|string|min:10|max:200|name=简介',
-				type: 'must|int|in:0,1|name=是否外部文章',
-				url: 'must|string|min:10|max:300|name=外部链接地址',
+            cateId: 'must|id|name=分类',
+            cateName: 'must|string|name=分类',
+            order: 'must|int|min:1|max:9999|name=排序号',
+            desc: 'must|string|min:10|max:200|name=简介',
+            type: 'must|int|in:0,1|name=是否外部文章',
+            url: 'must|string|min:10|max:300|name=外部链接地址',
         };
 
 		// 取得数据
@@ -119,7 +119,7 @@ class AdminNewsController extends AdminController {
 		const service = new AdminNewsService();
 		const result = await service.insert(this._adminId, params);
 
-		this.log('添加了文章《' + input.title + '》', LogModel.TYPE.NEWS);
+		this.log('添加了文章《' + params.title + '》', LogModel.TYPE.NEWS);
 
 		return result;
 

@@ -40,9 +40,9 @@ async function application(event, context) {
 		const log = cloud.logger();
 		if (error.name == 'AppError') {
 			log.warn({
-				route: r,
-				errCode: ex.code,
-				errMsg: ex.message
+				route: event.route,
+				errCode: error.code,
+				errMsg: error.message
 			});
 			// 自定义error处理
 			return handler.handlerAppError(error.message, error.code);

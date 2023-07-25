@@ -49,7 +49,7 @@ class Model {
 
 		// 更新时间
 		if (this.UPDATE_TIME) {
-			let editField = this.FIELD_PREFIX + 'EDIT_TIME';
+			let editField = 'edit_time';
 			if (!util.isDefined(data[editField])) data[editField] = timeUtil.time();
 		}
 
@@ -58,7 +58,7 @@ class Model {
 			let ip = cloud.getWXContext().CLIENTIP;
 
 
-			let editField = this.FIELD_PREFIX + 'EDIT_IP';
+			let editField = 'edit_ip';
 			if (!util.isDefined(data[editField])) data[editField] = ip;
 		}
 
@@ -83,17 +83,17 @@ class Model {
 	static async insert(data) {
 		// 自动ID
 		if (this.ADD_ID) {
-			let idField = this.FIELD_PREFIX + 'ID';
+			let idField = 'id';
 			if (!util.isDefined(data[idField])) data[idField] = Model.makeID();
 		}
 
 		// 更新时间
 		if (this.UPDATE_TIME) {
 			let timestamp = timeUtil.time();
-			let addField = this.FIELD_PREFIX + 'ADD_TIME';
+			let addField = 'add_time';
 			if (!util.isDefined(data[addField])) data[addField] = timestamp;
 
-			let editField = this.FIELD_PREFIX + 'EDIT_TIME';
+			let editField = 'edit_time';
 			if (!util.isDefined(data[editField])) data[editField] = timestamp;
 		}
 
@@ -101,10 +101,10 @@ class Model {
 		if (this.UPDATE_IP) {
 			let ip = cloud.getWXContext().CLIENTIP;
 
-			let addField = this.FIELD_PREFIX + 'ADD_IP';
+			let addField = 'add_ip';
 			if (!util.isDefined(data[addField])) data[addField] = ip;
 
-			let editField = this.FIELD_PREFIX + 'EDIT_IP';
+			let editField = 'edit_ip';
 			if (!util.isDefined(data[editField])) data[editField] = ip;
 		}
 
@@ -135,7 +135,7 @@ class Model {
 	static async insertBatch(data = [], size = 1000) {
 		// 自动ID
 		if (this.ADD_ID) {
-			let idField = this.FIELD_PREFIX + 'ID';
+			let idField = 'id';
 			for (let k in data)
 				if (!util.isDefined(data[k][idField])) data[k][idField] = Model.makeID();
 		}
@@ -143,8 +143,8 @@ class Model {
 		// 更新时间
 		if (this.UPDATE_TIME) {
 			let timestamp = timeUtil.time();
-			let addField = this.FIELD_PREFIX + 'ADD_TIME';
-			let editField = this.FIELD_PREFIX + 'EDIT_TIME';
+			let addField = 'add_time';
+			let editField = 'edit_time';
 
 			for (let k in data) {
 				if (!util.isDefined(data[k][addField])) data[k][addField] = timestamp;
@@ -157,8 +157,8 @@ class Model {
 		if (this.UPDATE_IP) {
 			let ip = cloud.getWXContext().CLIENTIP;
 
-			let addField = this.FIELD_PREFIX + 'ADD_IP';
-			let editField = this.FIELD_PREFIX + 'EDIT_IP';
+			let addField = 'add_ip';
+			let editField = 'edit_ip';
 
 			for (let k in data) {
 				if (!util.isDefined(data[k][addField])) data[k][addField] = ip;
@@ -635,9 +635,6 @@ Model.CL = 'no-collection';
 // 集合结构
 Model.DB_STRUCTURE = 'no-dbStructure';
 
-// 字段前缀
-Model.FIELD_PREFIX = 'NO_';
-
 // 开关自带更新ADD_TIME,EDIT_TIME,DEL_TIME的操作 
 Model.UPDATE_TIME = true;
 
@@ -645,7 +642,7 @@ Model.UPDATE_TIME = true;
 Model.UPDATE_IP = true;
 
 // 开关添加ID
-Model.ADD_ID = true;
+Model.ADD_ID = false;
 
 // 默认排序
 Model.ORDER_BY = {

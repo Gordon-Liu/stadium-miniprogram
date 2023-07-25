@@ -1,66 +1,53 @@
 // pages/admin/login/login.js
-Page({
+import AdminHomeApi from '../../../apis/admin/home';
+import { ApiCode } from '../../../apis/cloud';
+import AdminToken from '../../../utils/admin-token';
 
-    /**
-     * 页面的初始数据
-     */
+Component({
     data: {
-
+        name: '',
+        password: '',
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad(options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
+    methods: {
+        bindInputName(e) {
+            this.setData({
+                name: e.detail.value 
+            });
+        },
+        bindInputPassword(e) {
+            this.setData({
+                password: e.detail.value 
+            });
+        },
+        async bindLogin() {
+            if (this.data.name.length < 5 || this.data.name.length > 30) {
+                wx.showToast({
+                    title: '账号输入错误(5-30位)',
+                    icon: 'none'
+                });
+                return;
+            }
+    
+            if (this.data.password.length < 5 || this.data.password.length > 30) {
+                wx.showToast({
+                    title: '密码输入错误(5-30位)',
+                    icon: 'none'
+                });
+                return;
+            }
+            const res = await AdminHomeApi.login(this.data.name, this.data.password);
+            if (res.code === ApiCode.SUCCESS) {
+                AdminToken.setAdmin(res.data);
+				wx.reLaunch({
+					url: '/pages/admin/home/home',
+				});
+            }
+            
+        },
+        bindBack() {
+            wx.switchTab({
+                url: '/pages/my/my',
+            });
+        }
     }
-})
+});

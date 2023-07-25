@@ -9,6 +9,9 @@ module.exports = {
     '/news/detail': 'news_controller@getDetail', 
     
     // admin new controller
+    '/admin/home': 'admin/home@home',
+    '/admin/home/login': 'admin/home@login',
+
     '/admin/news/list': 'admin/news@getList',
 	'/admin/news/insert': 'admin/news@insert',
 	'/admin/news/detail': 'admin/news@getDetail',

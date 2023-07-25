@@ -9,7 +9,8 @@ AdminModel.CL = 'db_admin';
 
 AdminModel.DB_STRUCTURE = {
 	id: 'string|true',
-	name: 'string|true',
+    name: 'string|true',
+    password: 'string|true',
 	phone: 'string|true|comment=登录电话',
 	status: 'int|true|default=1|comment=状态：0=禁用 1=启用',
 

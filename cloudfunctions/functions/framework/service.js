@@ -1,4 +1,6 @@
 const timeUtil = require('../framework/time-util.js');
+const appCode = require('../framework/app-code.js');
+const AppError = require('../framework/app-error.js');
 
 class Service {
 	constructor() {
