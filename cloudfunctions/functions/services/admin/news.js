@@ -12,7 +12,9 @@ class AdminNewsService extends Service {
 		order,
 		type = 0, //类型 
 		desc = '',
-		url = '', //外部链接
+        url = '', //外部链接
+        pic = [],
+        content = [],
 	}) {
         const data = {
             title,
@@ -22,6 +24,8 @@ class AdminNewsService extends Service {
             type,
             desc,
             url,
+            pic,
+            content,
             admin_id: adminId
         };
 

@@ -100,6 +100,8 @@ class AdminNewsController extends AdminController {
             order: 'must|int|min:1|max:9999|name=排序号',
             desc: 'must|string|min:10|max:200|name=简介',
             type: 'must|int|in:0,1|name=是否外部文章',
+            pic: 'must|array|name=附加图片',
+            content: 'must|array|name=内容',
         } : {
             title: 'must|string|min:4|max:50|name=标题',
             cateId: 'must|id|name=分类',
@@ -108,6 +110,8 @@ class AdminNewsController extends AdminController {
             desc: 'must|string|min:10|max:200|name=简介',
             type: 'must|int|in:0,1|name=是否外部文章',
             url: 'must|string|min:10|max:300|name=外部链接地址',
+            pic: 'must|array|name=附加图片',
+            content: 'must|array|name=内容',
         };
 
 		// 取得数据

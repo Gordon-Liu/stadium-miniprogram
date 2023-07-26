@@ -1,0 +1,7 @@
+/* pages/admin/stadium/list/list.wxss */
+@import '../../../../styles/admin.wxss';
+
+page {
+	background-color: #f8f8f8;
+}
+ 

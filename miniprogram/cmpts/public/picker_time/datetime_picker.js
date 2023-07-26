@@ -1,5 +1,3 @@
-const timeHelper = require('../../../helper/time_helper.js');
-
 function withData(param, unit = '') {
 	if (unit) return param;
 	return param < 10 ? '0' + param : '' + param;

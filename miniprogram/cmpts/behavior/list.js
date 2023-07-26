@@ -24,7 +24,7 @@ export default Behavior({
                     dataList: e.detail.dataList,
                 });
                 if (e.detail.sortType)
-                    that.setData({
+                    this.setData({
                         sortType: e.detail.sortType,
                     });
             }

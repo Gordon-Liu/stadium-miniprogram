@@ -21,7 +21,11 @@
         "pages/admin/home/home",
         "pages/admin/news/add/add",
         "pages/admin/news/list/list",
-        "pages/admin/content/content"
+        "pages/admin/content/content",
+        "pages/admin/stadium/list/list",
+        "pages/admin/stadium/edit/edit",
+        "pages/admin/stadium/cover/cover",
+        "pages/admin/stadium/time/time"
     ],
     "window": {
         "backgroundColor": "#F6F6F6",

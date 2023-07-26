@@ -1,5 +1,5 @@
-const pageHelper = require('../../../../helper/page_helper.js');
-const dataHelper = require('../../../../helper/data_helper.js');
+import { arraySwap } from '../../../../utils/data';
+import { dataset } from '../../../../utils/util';
 
 Component({
 	options: {
@@ -57,7 +57,9 @@ Component({
 		},
 
 		url: function (e) {
-			pageHelper.url(e, this);
+            wx.navigateTo({
+                url: e.currentTarget.dataset.url,
+            });
 		},
 
 		set: function (fields) {
@@ -72,9 +74,9 @@ Component({
 		}, 
 
 		bindUpTap: function (e) {
-			let idx = pageHelper.dataset(e, 'idx');
+			let idx = dataset(e, 'idx');
 			let fields = this.data.fields;
-			dataHelper.arraySwap(fields, idx, idx - 1);
+			arraySwap(fields, idx, idx - 1);
 			this.setData({
 				fields
 			});
@@ -82,9 +84,9 @@ Component({
 			this.triggerEvent('formset', fields);
 		},
 		bindDownTap: function (e) {
-			let idx = pageHelper.dataset(e, 'idx');
+			let idx = dataset(e, 'idx');
 			let fields = this.data.fields;
-			dataHelper.arraySwap(fields, idx, idx + 1);
+			arraySwap(fields, idx, idx + 1);
 			this.setData({
 				fields
 			});

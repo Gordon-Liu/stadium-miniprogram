@@ -1,4 +1,3 @@
-const dataHelper = require('../../../helper/data_helper.js');
 const dateTimePicker = require('./datetime_picker.js');
 
 Component({

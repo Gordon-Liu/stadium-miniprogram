@@ -9,7 +9,7 @@
 	val:'v2'
 }]
 */
-const dataHelper = require('../../../helper/data_helper.js');
+import { deepClone, getArrByKey } from '../../../utils/data';
 
 function isExist(field) {
 	return field !== null && field !== undefined
@@ -304,7 +304,7 @@ Component({
 			const handle = (source = [], columnIndex = 0) => {
 				source.forEach((item, index) => {
 					if (index === multiIndex[columnIndex]) {
-						let node = dataHelper.deepClone(item);
+						let node = deepClone(item);
 						delete node.children;
 						selectedArray.push(node);
 						if (columnIndex < this.data.steps - 1) {
@@ -325,7 +325,7 @@ Component({
 				selectedArray: this.data.selectedArray
 			}*/
 
-			let ret = dataHelper.getArrByKey(selectedArray, 'val');
+			let ret = getArrByKey(selectedArray, 'val');
 
 			this.triggerEvent('select', ret);
 		},

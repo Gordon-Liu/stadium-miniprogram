@@ -20,29 +20,9 @@
         </view>
 
         <!-- List Begin -->
-        <view
-            wx:if="{{!list}}"
-            class="margin-top load loading text-l load-project"></view>
-        <view
-            wx:if="{{list}}"
-            wx:for="{{list}}"
-            wx:key="index"
-            class="item card-project shadow-project item-leftbig3"
-            bindtap="url"
-            data-url="../../{{item.type}}/detail/{{item.type}}_detail?id={{item._id}}">
-            <image mode="aspectFill" lazy-load="{{true}}" class="leftbig-left loading" src="{{item.pic}}"></image>
-            <view class="leftbig-right">
-                <view class="leftbig-title content-cut-one">{{item.title}}</view>
-                <view class="leftbig-desc">
-                    <text class="{{listMode=='leftbig3'?'content-cut-two':'content-cut-three'}}">{{item.desc}} </text>
-                </view>
-                <view class="data">
-                    <view class="meet-tag-list text-cut">
-                    </view>
-                    <view class="meet-status"><text wx:if="{{item.type=='meet'}}" class="icon-remind margin-right-xxs"></text>{{item.ext}}</view>
-                </view>
-            </view>
-        </view>
+        <view wx:if="{{!dataList}}" class="margin-top load loading text-l load-project"></view>
+        <import src="../../templates/list.wxml" />
+        <template is="baseListTemplate" data="{{dataList: dataList,listMode : 'leftbig3'}}" />
         <!-- List END -->
     </view>
 </view>

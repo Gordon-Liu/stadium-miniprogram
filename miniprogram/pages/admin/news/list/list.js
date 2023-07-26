@@ -7,6 +7,8 @@ Component({
     behaviors: [behavior],
     data: {
         isAdmin: false,
+        sortMenus: [],
+        sortMenus: [],
     },
     methods: {
         bindJumpUrl (e) {

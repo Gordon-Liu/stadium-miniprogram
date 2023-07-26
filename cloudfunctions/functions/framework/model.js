@@ -642,7 +642,7 @@ Model.UPDATE_TIME = true;
 Model.UPDATE_IP = true;
 
 // 开关添加ID
-Model.ADD_ID = false;
+Model.ADD_ID = true;
 
 // 默认排序
 Model.ORDER_BY = {

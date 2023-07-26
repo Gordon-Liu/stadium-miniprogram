@@ -15,14 +15,14 @@ Component({
             '游泳馆预约',
             '健身房预约'
         ],
-        list: null
+        dataList: null
     },
     methods: {
         async getNewsList () { 
             const res = await NewsApi.homeList();
             if (res.code === ApiCode.SUCCESS) {
                 this.setData({
-                    list: res.data
+                    dataList: res.data
                 });
             }
             

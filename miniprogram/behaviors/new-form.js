@@ -70,26 +70,6 @@ export default Behavior({
                 contentDesc
             });
         },
-         /**
-         * 配合搜索列表响应监听
-         * @param {*} that 
-         */
-        bindCommListListener(e) {
-            if (isDefined(e.detail.search))
-                this.setData({
-                    search: '',
-                    sortType: '',
-                });
-            else {
-                this.setData({
-                    dataList: e.detail.dataList,
-                });
-                if (e.detail.sortType)
-                    this.setData({
-                        sortType: e.detail.sortType,
-                    });
-            }
-        },
         bindJumpUrl (e) {
             wx.navigateTo({
                 url: e.currentTarget.dataset.url,
