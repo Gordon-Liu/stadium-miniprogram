@@ -15,8 +15,25 @@ Component({
             showModal(e.currentTarget.dataset.url);
         },
         async getDetail() {
+            const id = this.data.id;
+            if (!id) return;
+            
+            const res = await StadiumApi.
+
             this.setData({
-                isLoad: true
+                isLoad: true,
+                // 表单数据   
+                formTitle: res.data.title,
+                formTypeId: res.data.type_id,
+                formContent: res.data.content,
+                formOrder: res.data.order,
+                formStyleSet: res.data.style_set,
+
+                formDaysSet: res.data.days_set,
+
+                formIsShowLimit: res.data.is_show_limit,
+
+                formFormSet: res.data.form_set,
             });
         }
     },

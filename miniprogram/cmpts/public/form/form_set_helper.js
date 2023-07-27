@@ -1,10 +1,11 @@
-const dataHelper = require('../../../helper/data_helper.js');
-const pageHelper = require('../../../helper/page_helper.js');
-const helper = require('../../../helper/helper.js');
-const validate = require('../../../helper/validate.js');
+import { deepClone, genRandomAlpha, getSelectOptions } from '../../../utils/data';
+import { showModal } from '../../../utils/confirm';
+import { isDefined } from '../../../utils/util';
+import { checkDate, checkYear, checkYearMonth, checkHourMinute, checkInt, checkDigit } from '../../../utils/validate';
 
-function defaultForm(defaultforms = null) {
-	let forms = dataHelper.deepClone(defaultforms);
+
+export function defaultForm(defaultforms = null) {
+	let forms = deepClone(defaultforms);
 	if (forms) {
 		for (let k in forms) {
 			if (!forms[k]['mark']) forms[k]['mark'] = mark();
@@ -46,7 +47,7 @@ function defaultForm(defaultforms = null) {
 
 // 函数参数必须是字符串，因为二代身份证号码是十八位，而在javascript中，十八位的数值会超出计算范围，造成不精确的结果，导致最后两位和计算的值不一致，从而该函数出现错误。
 // 详情查看javascript的数值范围
-function checkIDCard(idcode) {
+export function checkIDCard(idcode) {
 	if (idcode.length != 18) return false;
 
 	// 加权因子
@@ -93,13 +94,13 @@ function checkIDCard(idcode) {
 }
 
 // 判断是否为选择型表单
-function isSelectForm(type) {
+export function isSelectForm(type) {
 	let arr = ['select', 'date', 'month', 'hourminute', 'time', 'checkbox', 'switch', 'area'];
 	return arr.includes(type);
 }
 
 // form 数据校验
-function checkForm(fields, forms) {
+export function checkForm(fields, forms) {
 	for (let k in fields) {
 		delete fields[k].focus;
 	}
@@ -112,16 +113,16 @@ function checkForm(fields, forms) {
 		// 必填
 		let hintOprt = isSelectForm(type) ? '请选择' : '请填写'; //提示动作
 	 
-		if (fields[k].must && type != 'switch' && (!helper.isDefined(val) || val.length == 0)) {
+		if (fields[k].must && type != 'switch' && (!isDefined(val) || val.length == 0)) {
 			fields[k].focus = hintOprt + title;
-			return pageHelper.showModal(hintOprt + '' + title);
+			return showModal(hintOprt + '' + title);
 		}
 
 		// 最大长度
 		if (type == 'line' || type == 'multi' || type == 'number' || type == 'digit') {
 			if (val.length > fields[k].len) {
 				fields[k].focus = title + ' 字数太多，精简一下吧';
-				return pageHelper.showModal(title + ' 字数太多，精简一下吧');
+				return showModal(title + ' 字数太多，精简一下吧');
 			}
 		}
 
@@ -129,7 +130,7 @@ function checkForm(fields, forms) {
 			case 'mobile': {
 				if (val.length > 0 && val.length != 11) {
 					fields[k].focus = '请填写正确的 ' + title;
-					return pageHelper.showModal('请填写正确的 ' + title);
+					return showModal('请填写正确的 ' + title);
 				}
 				break;
 			}
@@ -140,56 +141,56 @@ function checkForm(fields, forms) {
 			case 'idcard': {
 				if (val.length > 0 && !checkIDCard(val)) {
 					fields[k].focus = '请填写正确的 ' + title;
-					return pageHelper.showModal('请填写正确的 ' + title);
+					return showModal('请填写正确的 ' + title);
 				}
 				break;
 			}
 			case 'checkbox': {
 				if (val.length > 0 && val.length < fields[k].checkBoxLimit) {
 					fields[k].focus = title + ' 至少选中' + fields[k].checkBoxLimit + '项';
-					return pageHelper.showModal(title + ' 至少选中' + fields[k].checkBoxLimit + '项');
+					return showModal(title + ' 至少选中' + fields[k].checkBoxLimit + '项');
 				}
 				break;
 			}
 			case 'date': {
-				if (validate.checkDate(val)) {
+				if (checkDate(val)) {
 					fields[k].focus = '请填写正确的 ' + title;
-					return pageHelper.showModal('请填写正确的 ' + title);
+					return showModal('请填写正确的 ' + title);
 				}
 				break;
 			}
 			case 'year': {
-				if (validate.checkYear(val)) {
+				if (checkYear(val)) {
 					fields[k].focus = '请填写正确的 ' + title;
-					return pageHelper.showModal('请填写正确的 ' + title);
+					return showModal('请填写正确的 ' + title);
 				}
 				break;
 			}
 			case 'month': {
-				if (validate.checkYearMonth(val)) {
+				if (checkYearMonth(val)) {
 					fields[k].focus = '请填写正确的 ' + title;
-					return pageHelper.showModal('请填写正确的 ' + title);
+					return showModal('请填写正确的 ' + title);
 				}
 				break;
 			}
 			case 'hourminute': {
-				if (validate.checkHourMinute(val)) {
+				if (checkHourMinute(val)) {
 					fields[k].focus = '请填写正确的 ' + title;
-					return pageHelper.showModal('请填写正确的 ' + title);
+					return showModal('请填写正确的 ' + title);
 				}
 				break;
 			}
 			case 'number': {
-				if (validate.checkInt(val)) {
+				if (checkInt(val)) {
 					fields[k].focus = '请填写正确的 ' + title;
-					return pageHelper.showModal('请填写正确的 ' + title);
+					return showModal('请填写正确的 ' + title);
 				}
 				break;
 			}
 			case 'digit': {
-				if (validate.checkDigit(val)) {
+				if (checkDigit(val)) {
 					fields[k].focus = '请填写正确的 ' + title;
-					return pageHelper.showModal('请填写正确的 ' + title);
+					return showModal('请填写正确的 ' + title);
 				}
 				break;
 			}
@@ -199,19 +200,19 @@ function checkForm(fields, forms) {
 	return true;
 }
 
-function mark() {
-	return dataHelper.genRandomAlpha(10).toUpperCase();
+export function mark() {
+	return genRandomAlpha(10).toUpperCase();
 };
 
-function getTypeOptions() {
+export function getTypeOptions() {
 	//return dataHelper.getSelectOptions('line=单行文本,select=单项选择,checkbox=多项选择,switch=开关选择,multi=多行文本,idcard=身份证号码,mobile=手机号码,date=日期 (年 月 日),month=月份,year=年份,hourminute=时间点,area=省市区,number=整数数字,digit=带小数点的数字');
 
-	return dataHelper.getSelectOptions('line=单行文本,select=单项选择,checkbox=多项选择,switch=开关选择,multi=多行文本,idcard=身份证号码,date=日期 (年 月 日),month=月份,year=年份,hourminute=时间点,area=省市区,number=整数数字,digit=带小数点的数字');
+	return getSelectOptions('line=单行文本,select=单项选择,checkbox=多项选择,switch=开关选择,multi=多行文本,idcard=身份证号码,date=日期 (年 月 日),month=月份,year=年份,hourminute=时间点,area=省市区,number=整数数字,digit=带小数点的数字');
 }
 
 // 重复性规则
-function getOnlySetOptions() {
-	let mode = dataHelper.getSelectOptions('all=本项目全程重复次数,clock=按每一时段限制重复次数,day=按每天限制重复次数');
+export function getOnlySetOptions() {
+	let mode = getSelectOptions('all=本项目全程重复次数,clock=按每一时段限制重复次数,day=按每天限制重复次数');
 
 	let list = [];
 	for (let k in mode) {
@@ -245,7 +246,7 @@ function getOnlySetOptions() {
 }
 
 // 重复性规则的表述
-function getOnlySetDesc(rule) {
+export function getOnlySetDesc(rule) {
 	let ret = '';
 	switch (rule.mode) {
 		case 'all':
@@ -260,14 +261,4 @@ function getOnlySetDesc(rule) {
 	}
 	if (rule.cnt == 1) ret = ret.replace(/可重复/g, '仅可填写');
 	return ret;
-}
-
-module.exports = {
-	checkForm,
-	mark,
-	defaultForm,
-	getTypeOptions,
-
-	getOnlySetOptions,
-	getOnlySetDesc
 }

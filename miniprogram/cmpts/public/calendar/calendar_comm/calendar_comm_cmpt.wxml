@@ -1,4 +1,4 @@
-<wxs src="../../../../tpls/wxs/tools.wxs" module="tools" />
+<wxs src="../../../../templates/tools.wxs" module="tools" />
 <wxs module="utils">
 	// 比较操作日期所在月是否当前显示的月
 	function compareYearMonth(oneDoDay, year, month) {

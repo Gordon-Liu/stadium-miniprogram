@@ -25,7 +25,8 @@
         "pages/admin/stadium/list/list",
         "pages/admin/stadium/edit/edit",
         "pages/admin/stadium/cover/cover",
-        "pages/admin/stadium/time/time"
+        "pages/admin/stadium/time/time",
+        "pages/admin/stadium/content/content"
     ],
     "window": {
         "backgroundColor": "#F6F6F6",

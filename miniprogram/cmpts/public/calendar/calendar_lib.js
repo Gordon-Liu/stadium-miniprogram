@@ -1,15 +1,9 @@
-/**
- * Notes: 日历组件通用方法
- * Ver : CCMiniCloud Framework 2.0.1 ALL RIGHTS RESERVED BY cclinux@qq.com
- * Date: 2021-01-01 07:48:00 
- */
-const lunarLib = require('../../../lib/tools/lunar_lib.js');
-const timeHelper = require('../../../helper/time_helper.js');
-const dataHelper = require('../../../helper/data_helper.js');
-const pageHelper = require('../../../helper/page_helper.js');
+import { timestamp2Time, time2Timestamp } from '../../../utils/time';
+import { padLeft, deepClone, arrAddDel } from '../../../utils/data';
+import { sloarToLunar } from '../../../utils/lunar';
 
 // 是否节日
-function isHoliday(day) {
+export function isHoliday(day) {
 	if (!day) return false;
 
 	let arr = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '初', '廿'];
@@ -21,7 +15,7 @@ function isHoliday(day) {
 }
 
 // 某天是某月的第几周
-function weekIndexInMonth(year = null, month = null, today = null) {
+export function weekIndexInMonth(year = null, month = null, today = null) {
 	let time = new Date();
 
 	if (year == null) { // 没有设定，则取当前
@@ -44,7 +38,7 @@ function weekIndexInMonth(year = null, month = null, today = null) {
 }
 
 // 日期格式化，一位补2位
-function fmtDate(str) {
+export function fmtDate(str) {
 	str = str + '';
 	if (str.length == 1)
 		return '0' + str;
@@ -53,7 +47,7 @@ function fmtDate(str) {
 }
 
 // 获取当前时间，若定义了要操作的天, 则取得年份和月份，用以构造日历
-function getNowTime(that) {
+export function getNowTime(that) {
 	const time = new Date();
 	let year = time.getFullYear();
 	let month = time.getMonth() + 1;
@@ -64,11 +58,11 @@ function getNowTime(that) {
 
 	// 若定义了要操作的天, 则取得年份和月份，用以构造日历
 	if (that.data.mode == 'one' && that.data.oneDoDay) {
-		year = Number(timeHelper.timestamp2Time(timeHelper.time2Timestamp(that.data.oneDoDay), 'Y'));
-		month = Number(timeHelper.timestamp2Time(timeHelper.time2Timestamp(that.data.oneDoDay), 'M'));
+		year = Number(timestamp2Time(time2Timestamp(that.data.oneDoDay), 'Y'));
+		month = Number(timestamp2Time(time2Timestamp(that.data.oneDoDay), 'M'));
 	} else if (that.data.mode == 'multi' && that.data.multiDoDay && that.data.multiDoDay.length > 0 && that.data.multiDoDay[0]) {
-		year = Number(timeHelper.timestamp2Time(timeHelper.time2Timestamp(that.data.multiDoDay[0]), 'Y'));
-		month = Number(timeHelper.timestamp2Time(timeHelper.time2Timestamp(that.data.multiDoDay[0]), 'M'));
+		year = Number(timestamp2Time(time2Timestamp(that.data.multiDoDay[0]), 'Y'));
+		month = Number(timestamp2Time(time2Timestamp(that.data.multiDoDay[0]), 'M'));
 	}
 
 	let oneDoDay = that.data.oneDoDay || fullToday; // 正在操作的天完整格式
@@ -87,7 +81,7 @@ function getNowTime(that) {
 	});
 }
 //获得某月天数 
-function getMonthCnt(year, month) {
+export function getMonthCnt(year, month) {
 	let baseMonthsDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; //各月天数
 	if (month == 2 && year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
 		return 29;
@@ -96,7 +90,7 @@ function getMonthCnt(year, month) {
 }
 
 //获得上月天数  
-function getLastMonthCnt(year, month) {
+export function getLastMonthCnt(year, month) {
 	if (month == 1) {
 		month = 12;
 		--year;
@@ -106,7 +100,7 @@ function getLastMonthCnt(year, month) {
 }
 
 //从上月补几天
-function getLastMonthArr(that, year, month) {
+export function getLastMonthArr(that, year, month) {
 
 	let time = new Date(year, month - 1, 1);
 	let space = time.getDay() - 1; //获取当前星期X(0-6,0代表星期天)  
@@ -122,7 +116,7 @@ function getLastMonthArr(that, year, month) {
 
 	let dayArr = [];
 	for (let i = space; i >= 1; i--) {
-		let lunar = that.data.isLunar ? lunarLib.sloarToLunar(year, month, lastMonthCnt - i + 1) : '';
+		let lunar = that.data.isLunar ? sloarToLunar(year, month, lastMonthCnt - i + 1) : '';
 		let holiday = isHoliday(lunar);
 		let full = year + '-' + fmtDate(month) + '-' + fmtDate(lastMonthCnt - i + 1);
 		dayArr.push({ 
@@ -145,7 +139,7 @@ function getLastMonthArr(that, year, month) {
  * @param {*} month 
  * @param {*} hasDayLen  已有多少天
  */
-function getNextMonthArr(that, year, month, hasDayLen) {
+export function getNextMonthArr(that, year, month, hasDayLen) {
 
 	if (that.mode == 'multi') {
 		if (month == 12) {
@@ -159,7 +153,7 @@ function getNextMonthArr(that, year, month, hasDayLen) {
 		for (let i = 1; i <= (6 * 7 - hasDayLen); i++) {
 			let weekNo = Math.ceil((hasDayLen + i) / 7); // 计算当前是第几周 
 
-			let lunar = that.data.isLunar ? lunarLib.sloarToLunar(year, month, i) : '';
+			let lunar = that.data.isLunar ? sloarToLunar(year, month, i) : '';
 			let holiday = isHoliday(lunar);
 			let full = year + '-' + fmtDate(month) + '-' + fmtDate(i);
 			dayArr.push({ 
@@ -192,7 +186,7 @@ function getNextMonthArr(that, year, month, hasDayLen) {
 
 		let dayArr = [];
 		for (let i = 1; i <= space; i++) {
-			let lunar = that.data.isLunar ? lunarLib.sloarToLunar(year, month, i) : '';
+			let lunar = that.data.isLunar ? sloarToLunar(year, month, i) : '';
 			let holiday = isHoliday(lunar);
 			let full = year + '-' + fmtDate(month) + '-' + fmtDate(i);
 			dayArr.push({ 
@@ -214,7 +208,7 @@ function getNextMonthArr(that, year, month, hasDayLen) {
 }
 
 
-function createDay(that) {
+export function createDay(that) {
 	// 创建日历
 	let month = that.data.month;
 	let year = that.data.year;
@@ -222,7 +216,7 @@ function createDay(that) {
 	let dayArr = [];
 	let len = getMonthCnt(year, month);
 	for (let i = 1; i <= len; i++) {
-		let lunar = that.data.isLunar ? lunarLib.sloarToLunar(year, month, i) : '';
+		let lunar = that.data.isLunar ? sloarToLunar(year, month, i) : '';
 		let holiday = isHoliday(lunar);
 		let full = year + '-' + fmtDate(month) + '-' + fmtDate(i) //实际日期(补位);
 		dayArr.push({ 
@@ -274,8 +268,29 @@ function createDay(that) {
 	});
 }
 
+ /** ListTouch触摸开始 */
+export function listTouchStart(e, that) {
+    that.setData({
+        touchX: e.touches[0].pageX
+    })
+}
+
+/** ListTouch计算方向 */
+export function listTouchMove(e, that, precision = 50) {
+    if (that.data.touchX - e.touches[0].pageX > precision) {
+        that.setData({
+            touchDirection: 'left'
+        });
+    } else if (that.data.touchX - e.touches[0].pageX < -precision) {
+        that.setData({
+            touchDirection: 'right'
+        });
+    }
+
+}
+
 /** ListTouch计算滚动 */
-function listTouchEnd(that) {
+export function listTouchEnd(that) {
 	if (that.data.touchDirection == 'left') {
 		that.setData({
 			animation: 'slide-left'
@@ -306,7 +321,7 @@ function listTouchEnd(that) {
 }
 
 // 回本月
-function bindToNowTap(that) {
+export function bindToNowTap(that) {
 	const time = new Date();
 	let year = time.getFullYear();
 	let month = time.getMonth() + 1;
@@ -331,23 +346,23 @@ function bindToNowTap(that) {
 	if (that.data.mode == 'one') {
 		//月份切换引起父组件变动 
 		that.triggerEvent('monthChange', {
-			yearMonth: that.data.year + '-' + dataHelper.padLeft(that.data.month, 2, '0')
+			yearMonth: that.data.year + '-' + padLeft(that.data.month, 2, '0')
 		});
 	}
 }
 
 //多选天点击
-function bindDayMultiTap(e, that) {
+export function bindDayMultiTap(e, that) {
 
 	// 显示
 	let oneDoDay = e.currentTarget.dataset.fullday;
-	let multiDoDay = dataHelper.deepClone(that.data.multiDoDay);
+	let multiDoDay = deepClone(that.data.multiDoDay);
 
 	if (that.data.multiOnlyOne) {
 		// 只能选一个
 		multiDoDay = [oneDoDay];
 	} else {
-		multiDoDay = dataHelper.arrAddDel(multiDoDay, oneDoDay);
+		multiDoDay = arrAddDel(multiDoDay, oneDoDay);
 	}
 	if (multiDoDay.length < that.data.multiDoDay.length) {
 		// 有取消
@@ -367,7 +382,7 @@ function bindDayMultiTap(e, that) {
 }
 
 //单个天点击
-function bindDayOneTap(e, that) {
+export function bindDayOneTap(e, that) {
 	// 显示
 	let oneDoDay = e.currentTarget.dataset.fullday;
 
@@ -388,7 +403,7 @@ function bindDayOneTap(e, that) {
 }
 
 //  下月
-function bindNextTap(that) {
+export function bindNextTap(that) {
 	let month = that.data.month;
 	if (month == 12) {
 		that.setData({
@@ -407,13 +422,13 @@ function bindNextTap(that) {
 	if (that.data.mode == 'one') {
 		//月份切换引起父组件变动 
 		that.triggerEvent('monthChange', {
-			yearMonth: that.data.year + '-' + dataHelper.padLeft(that.data.month, 2, '0')
+			yearMonth: that.data.year + '-' + padLeft(that.data.month, 2, '0')
 		});
 	}
 }
 
 // 上个月
-function bindLastTap(that) {
+export function bindLastTap(that) {
 	let month = that.data.month;
 	if (month == 1) {
 		that.setData({
@@ -432,13 +447,13 @@ function bindLastTap(that) {
 	if (that.data.mode == 'one') {
 		//月份切换引起父组件变动 
 		that.triggerEvent('monthChange', {
-			yearMonth: that.data.year + '-' + dataHelper.padLeft(that.data.month, 2, '0')
+			yearMonth: that.data.year + '-' + padLeft(that.data.month, 2, '0')
 		});
 	}
 }
 
 // 日历折叠
-function bindFoldTap(that) {
+export function bindFoldTap(that) {
 	if (that.data.fold)
 		that.setData({
 			fold: false
@@ -449,23 +464,4 @@ function bindFoldTap(that) {
 			fold: true
 		});
 	}
-}
-
-module.exports = {
-	isHoliday,
-	weekIndexInMonth,
-	fmtDate,
-	getNowTime,
-	getMonthCnt,
-	getLastMonthCnt,
-	getLastMonthArr,
-	getNextMonthArr, 
-	createDay,
-	listTouchEnd,
-	bindToNowTap,
-	bindDayMultiTap,
-	bindDayOneTap,
-	bindNextTap,
-	bindLastTap,
-	bindFoldTap
 }
