@@ -1,6 +1,7 @@
 const AdminController = require('../../framework/admin-controller');
 const AdminNewsService = require('../../services/admin/news.js');
 const contentCheck = require('../../framework/content-check.js');
+const timeUtil = require('../../framework/time-util.js');
 const LogModel = require('../../models/log.js');
 
 class AdminNewsController extends AdminController {
@@ -60,7 +61,16 @@ class AdminNewsController extends AdminController {
 		const params = this.validateData(rules);
 
 		const service = new AdminNewsService();
-		const result = await service.getList(params);
+        const result = await service.getList(params);
+        
+        // 数据格式化
+		let list = result.list;
+		for (let k in list) {
+			list[k].add_time = timeUtil.timestamp2Time(list[k].add_time, 'Y-M-D h:m');
+			list[k].edit_time = timeUtil.timestamp2Time(list[k].edit_time, 'Y-M-D h:m');
+
+		}
+		result.list = list;
 
 		return result;
 

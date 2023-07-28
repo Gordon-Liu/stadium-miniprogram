@@ -5,7 +5,7 @@
         search="{{search}}"
         _menus="{{sortMenus}}"
         _items="{{sortItems}}"
-        route="/admin/meet/stadium"
+        route="/admin/stadium/list"
         sortMenusDefaultIndex="0"
         topBottom="50"
         placeholder="搜索标题"
@@ -21,7 +21,7 @@
 
 			<view class="item" wx:for="{{dataList.list}}" wx:key="key">
 				<view class="header">
-					<view class="left text-cut"><text wx:if="{{item.order==0}}" class="text-black" style="font-weight:normal;font-size:24rpx">[置顶]</text> {{item.MEET_TITLE}}
+					<view class="left text-cut"><text wx:if="{{item.order==0}}" class="text-black" style="font-weight:normal;font-size:24rpx">[置顶]</text> {{item.title}}
 					</view>
 					<view class="right" bindtap="bindScanTap" data-id="{{item._id}}" data-title="{{item.title}}">
 						<text class="icon-scan"></text>

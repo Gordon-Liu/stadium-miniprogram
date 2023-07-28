@@ -55,7 +55,7 @@ class AdminNewsService extends Service {
 			'order': 'asc',
 			'add_time': 'desc'
 		};
-		const fields = 'type,url,title,desc,cate_id,edit_time,add_time,order,status,cate_name,home';
+		const fields = '*';
 
 		const where = {};
 

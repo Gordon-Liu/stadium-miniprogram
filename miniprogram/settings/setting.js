@@ -13,3 +13,7 @@ export const IMG_UPLOAD_SIZE = 20; //图片上传大小M兆
 
 // #### 资讯相关
 export const NEWS_PIC_PATH = 'news/pic/';
+
+// #### 预约相关
+export const STADIUM_CAN_NULL_TIME = false; // 是否允许有无时段的日期保存和展示  
+export const STADIUM_PIC_PATH = 'meet/pic/';

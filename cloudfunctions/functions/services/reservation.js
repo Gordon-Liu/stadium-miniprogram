@@ -19,7 +19,7 @@ class ReservationService extends Service {
         orderBy = orderBy || {
 			'add_time': 'desc'
 		};
-		const fields = 'is_checkin,reason,meet_id,meet_title,meet_day,meet_time_start,meet_time_end,status,add_time';
+		const fields = '*';
 
 		const where = {
 			'user_id': userId
@@ -74,7 +74,7 @@ class ReservationService extends Service {
     /** 取得我的某日预约列表 */
 	async getMySomeday(userId, day) {
 
-		const fields = 'is_checkin,meet_id,meet_title,meet_day,meet_time_start,meet_time_end,status,add_time';
+		const fields = '*';
 
         const where = {
             'user_id': userId,

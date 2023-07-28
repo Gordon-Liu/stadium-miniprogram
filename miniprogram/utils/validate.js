@@ -1,3 +1,5 @@
+ import { anchor } from './page';
+ 
  /**
 1 规则大循环
 2 规则内循环，取得数据项说明(默认空串)，缺省值(默认空串)，数据类型(默认String)
@@ -562,11 +564,19 @@ export function check(data, rules) {
  	return returnData;
 }
 
- function _showError(result, formName) { //admin/client
+ function _showError(result, formName, that) { //admin/client
     wx.showModal({
         title: '温馨提示',
         content: result,
         showCancel: false,
-        success(res) {}
+        success(res) {
+            if (that) {
+                anchor(formName, that);
+
+                that.setData({
+                    [formName + 'Focus']: result,
+                });
+            }
+        }
     });
 }

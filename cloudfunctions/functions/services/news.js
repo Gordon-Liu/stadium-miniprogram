@@ -37,7 +37,7 @@ class NewsService extends Service {
 			'order': 'asc',
 			'add_time': 'desc'
 		};
-		const fields = 'pic,view_cnt,title,desc,cate_id,add_time,order,status,cate_name';
+		const fields = '*';
 
 		const where = {};
 		where['status'] = NewsModel.STATUS.ENABLED; // 状态 
@@ -74,7 +74,7 @@ class NewsService extends Service {
 			'order': 'asc',
 			'add_time': 'desc'
 		};
-		const fields = 'pic,title,desc,add_time';
+		const fields = '*';
 
 		const where = {};
 		where['status'] = NewsModel.STATUS.ENABLED; // 状态 

@@ -13,7 +13,7 @@
 
 			<view class="form-group arrow">
 				<view class="title must">分类</view>
-				<cmpt-picker id="cate-picker" sourceData="{{typeIdOptions}}" bind:select="url" data-type="picker" data-item="formTypeId" item="{{formTypeId}}"> </cmpt-picker>
+				<cmpt-picker id="cate-picker" sourceData="{{typeIdOptions}}" bind:select="bindSelectCate" data-type="picker" data-item="formTypeId" item="{{formTypeId}}"> </cmpt-picker>
 			</view>
 			<view wx:if="{{formTypeIdFocus}}" class="hint-desc error">{{formTypeIdFocus}}</view>
 

@@ -9,7 +9,7 @@ class StadiumService extends Service {
             'order': 'asc',
             'add_time': 'desc'
         };
-        const fields = 'pic,title,desc,add_time';
+        const fields = '*';
         const where = {
             status: 1 // 状态    
         };

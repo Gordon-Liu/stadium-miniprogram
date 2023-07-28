@@ -1,4 +1,7 @@
 import { fmtText } from '../utils/data';
+import { showModal } from '../utils/confirm';
+import { AdminClient } from '../apis/cloud';
+import { STADIUM_PIC_PATH } from '../settings/setting';
 import { defaultForm } from '../cmpts/public/form/form_set_helper';
 
 function getBeginDaySetOptions() {
@@ -79,7 +82,18 @@ export default Behavior({
 
         formIsShowLimit: 1, //是否显示可预约数量
 
-        formFormSet: defaultForm()
+        formFormSet: defaultForm(),
+
+        CHECK_FORM: {
+            title: 'formTitle|must|string|min:2|max:50|name=标题',
+            typeId: 'formTypeId|must|id|name=分类',
+            order: 'formOrder|must|int|min:1|max:9999|name=排序号',
+        
+            daysSet: 'formDaysSet|must|array|name=预约时间设置',
+            isShowLimit: 'formIsShowLimit|must|int|in:0,1|name=是否显示可预约人数',
+        
+            formSet: 'formFormSet|must|array|name=用户资料设置',
+        }
 	},
 	methods: {
         bindSetContentDesc() {
@@ -103,6 +117,70 @@ export default Behavior({
             wx.navigateTo({
                 url: e.currentTarget.dataset.url,
             });
+        },
+        bindFormClearFocus() {
+            let data = this.data;
+            let focus = {};
+            for (let key in data) {
+                if (key.startsWith('form') && !key.endsWith('Focus'))
+                    focus[key + 'Focus'] = null;
+            }
+            this.setData({
+                ...focus
+            });
+        },
+        bindFormHint(formName, hint) {
+            this.setData({
+                [formName + 'Focus']: hint
+            });
+            return showModal(hint);
+        },
+        async bindUpdateMeetCotnentPic(content) {
+            let imgList = [];
+            for (let k in content) {
+                if (content[k].type == 'img') {
+                    imgList.push(content[k].val);
+                }
+            }
+    
+            // 图片上传到云空间
+            const adminClient = new AdminClient();
+            imgList = await adminClient.uploadImage(imgList, STADIUM_PIC_PATH);
+    
+            // 更新图片地址
+            let imgIdx = 0;
+            for (let k in content) {
+                if (content[k].type == 'img') {
+                    content[k].val = imgList[imgIdx];
+                    imgIdx++;
+                }
+            }
+    
+            // 更新本记录的图片信息
+            this.setData({
+                formContent: content
+            });
+        },
+        async bindUpdateMeetStyleSet(styleSet) {
+            let pic = styleSet.pic;
+    
+            // 图片上传到云空间
+            if (styleSet.pic) { 
+                const adminClient = new AdminClient();
+                const imgList = await adminClient.uploadImage([pic], STADIUM_PIC_PATH);
+                styleSet.pic = imgList[0];
+            }
+                
+            // 更新本记录的图片信息
+            this.setData({
+                formStyleSet: styleSet
+            });
+        },
+        getTypeName() {
+            for (let k in this.data.typeIdOptions) {
+                if (this.data.typeIdOptions[k].val == this.data.formTypeId) return this.data.typeIdOptions[k].label;
+            }
+            return '';
         },
 	}
 });

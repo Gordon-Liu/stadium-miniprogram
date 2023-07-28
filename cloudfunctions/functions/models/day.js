@@ -12,7 +12,7 @@ DayModel.DB_STRUCTURE = {
 	stadium_id: 'string|true',
 
 	day: 'string|true|comment=日期 yyyy-mm-dd',
-	dayDesc: 'string|true|comment=描述',
+	day_desc: 'string|true|comment=描述',
 	times: 'array|true|comment=具体时间段',
 	/*
 		{

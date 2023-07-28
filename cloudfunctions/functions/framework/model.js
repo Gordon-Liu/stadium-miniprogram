@@ -81,9 +81,9 @@ class Model {
 	 * @param {*} data 
 	 */
 	static async insert(data) {
-		// 自动ID
+        // 自动ID
+        let idField = 'id';
 		if (this.ADD_ID) {
-			let idField = 'id';
 			if (!util.isDefined(data[idField])) data[idField] = Model.makeID();
 		}
 
@@ -109,9 +109,11 @@ class Model {
 		}
 
 		// 数据清洗
-		data = this.clearCreateData(data);
+        data = this.clearCreateData(data);
+        
+        let _id = await dbUtil.insert(this.CL, data);
 
-		return await dbUtil.insert(this.CL, data);
+		return this.ADD_ID ? data[idField] : _id;
 	}
 
 	/**

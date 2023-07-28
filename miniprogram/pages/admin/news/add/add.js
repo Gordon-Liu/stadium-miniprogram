@@ -26,9 +26,9 @@ Component({
             let data = {...this.data};
             // 数据校验  by 类型
             if (data.formType == 0) { // 内部
-                data = check(data, data.CHECK_FORM);
+                data = check(data, data.CHECK_FORM, this);
             } else { // 外部
-                data = check(data, data.CHECK_FORM_OUT);
+                data = check(data, data.CHECK_FORM_OUT, this);
             }
             
             if (!data) return;
