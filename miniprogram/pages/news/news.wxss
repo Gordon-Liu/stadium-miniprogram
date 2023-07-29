@@ -1,1 +1,3 @@
 /* pages/news/news.wxss */
+@import '../../styles/base.wxss';
+@import '../../styles/list.wxss';

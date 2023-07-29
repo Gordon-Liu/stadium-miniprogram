@@ -5,25 +5,12 @@ import { showSuccessToast, showNoneToast } from '../../../../utils/toast';
 import { getPrevPage } from '../../../../utils/page';
 import { time, fmtDateCHN, week } from '../../../../utils/time';
 import { dataset } from '../../../../utils/util';
-import { getArrByKey, deepClone, genRandomAlpha } from '../../../../utils/data';
+import { getArrByKey } from '../../../../utils/data';
 import AdminStadiumApi from '../../../../apis/admin/stadium';
 import { ApiCode } from '../../../../apis/cloud';
 import AdminTempApi from '../../../../apis/admin/temp';
-import { STADIUM_CAN_NULL_TIME } from '../../../../settings/setting'
-
-const TIME_NODE = {
-	mark: 'mark-no',
-	start: '00:00', //开始
-	end: '23:59', // 结束
-	limit: 50, //人数限制
-	isLimit: false,
-	status: 1,
-	stat: { //统计数据 
-		succCnt: 0,
-		cancelCnt: 0,
-		adminCancelCnt: 0,
-	}
-};
+import { STADIUM_CAN_NULL_TIME } from '../../../../settings/setting';
+import timeBehavior from '../../../../behaviors/time';
 
 function getDaysTimeOptions() {
     let HourArr = [];
@@ -63,14 +50,8 @@ function checkHasJoinCnt (times) {
     return false;
 }
 
-function getNewTimeNode(day) {
-    let node = deepClone(TIME_NODE);
-    day = day.replace(/-/g, '');
-    node.mark = 'T' + day + 'AAA' + genRandomAlpha(10).toUpperCase();
-    return node;
-}
-
 Component({
+    behaviors: [timeBehavior],
     data: {
         daysTimeOptions: getDaysTimeOptions(),
 
@@ -148,7 +129,7 @@ Component({
     
             if (days[idx].times.length >= 20) return showModal('最多可以添加20个时段');
     
-            days[idx].times.push(getNewTimeNode(days[idx].day));
+            days[idx].times.push(this.getNewTimeNode(days[idx].day));
     
             this.setData({
                 days
@@ -293,7 +274,7 @@ Component({
                 temps
             );
             if (res.code === ApiCode.SUCCESS) {
-                howSuccessToast('保存成功');
+                showSuccessToast('保存成功');
                 this.setData({
                     saveTempModalShow: false,
                     formTempName: '',
@@ -357,7 +338,6 @@ Component({
             }
         },
         bindSelectTemp (e) {
-            console.log('sdasdasd')
             const curIdx = dataset(e, 'idx');
     
             if (checkHasJoinCnt(this.data.days[curIdx].times)) {
@@ -367,7 +347,7 @@ Component({
             this.setData({
                 curIdx
             });
-            console.log('11111')
+            
             wx.navigateTo({
                 url: '/pages/admin/stadium/temp/temp',
             });
@@ -393,7 +373,7 @@ Component({
     
                     const times = [];
                     for (let j in temps) {
-                        const node = getNewTimeNode(days[k].day);
+                        const node = this.getNewTimeNode(days[k].day);
                         node.start = temps[j].start;
                         node.end = temps[j].end;
                         node.limit = temps[j].limit;
@@ -487,7 +467,7 @@ Component({
                 // 节点不存在
                 if (!dayExist) {
                     const dayDesc = fmtDateCHN(clickDays[k]) + ' (' + week(clickDays[k]) + ')';
-                    const times = [getNewTimeNode(clickDays[k])];
+                    const times = [this.getNewTimeNode(clickDays[k])];
                     const node = {
                         day: clickDays[k],
                         dayDesc,

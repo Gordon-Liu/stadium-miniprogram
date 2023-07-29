@@ -10,4 +10,21 @@ export default class AdminTempApi {
         });
     }
 
+    static list () {
+        return this.client.request('/admin/temp/list');
+    }
+
+    static edit (id, limit, isLimit) {
+        return this.client.request('/admin/temp/edit', {
+            id,
+            limit,
+            isLimit
+        });
+    }
+
+    static delete (id) {
+        return this.client.request('/admin/temp/delete', {
+            id,
+        });
+    }
 }

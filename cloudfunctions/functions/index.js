@@ -5,7 +5,7 @@ const AdminModel = require('./models/admin.js');
 
 exports.main = async (event, context) => {
 
-    // const dbArray = ['db_stadium', 'db_reservation', 'db_news', 'db_user', 'db_log', 'db_admin', 'db_day', 'db_cache'];
+    // const dbArray = ['db_stadium', 'db_reservation', 'db_news', 'db_user', 'db_log', 'db_admin', 'db_day', 'db_cache', 'db_temp'];
     // for (let k in dbArray) {
     //     if (!await dbUtil.isExistCollection(dbArray[k])) {
     //         await dbUtil.createCollection(dbArray[k]);

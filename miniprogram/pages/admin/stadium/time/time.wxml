@@ -33,7 +33,7 @@
 
 
 						<view class="limit box" bindtap="bindShowTimeLimitModal" data-idx="{{index}}" data-timesidx="{{timesIndex}}">{{!timesItem.isLimit?'不限人数':timesItem.limit+'人'}}<text class="icon-right"></text></view>
-						<view class="box close" bindtap="bindTimeDelTap" data-idx="{{index}}" data-timesidx="{{timesIndex}}" data-mark="{{timesItem.mark}}">
+						<view class="box close" bindtap="bindTimeDel" data-idx="{{index}}" data-timesidx="{{timesIndex}}" data-mark="{{timesItem.mark}}">
 							<text class="icon-delete"></text>
 						</view>
 

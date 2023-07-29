@@ -24,4 +24,10 @@ module.exports = {
     '/admin/stadium/list': 'admin/stadium@getList',
     '/admin/stadium/insert': 'admin/stadium@insert',
     '/admin/stadium/edit': 'admin/stadium@edit',
+
+    // admin temp controller
+    '/admin/temp/list': 'admin/temp@getList',
+    '/admin/temp/insert': 'admin/temp@insert',
+    '/admin/temp/edit': 'admin/temp@edit',
+    '/admin/temp/delete': 'admin/temp@delete',
 };
