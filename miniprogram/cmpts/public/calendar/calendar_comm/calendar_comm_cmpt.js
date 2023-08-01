@@ -1,6 +1,7 @@
-const timeHelper = require('../../../../helper/time_helper.js');
-const pageHelper = require('../../../../helper/page_helper.js');
-const calendarLib = require('../calendar_lib.js');
+import { time } from '../../../../utils/time';
+import { showNoneToast } from '../../../../utils/toast';
+import { getNowTime, createDay, bindFoldTap, bindNextTap, bindLastTap, bindDayOneTap, bindDayMultiTap, bindToNowTap, listTouchStart, listTouchMove, listTouchEnd } from '../calendar_lib';
+
 
 /*#### 父组件日历颜色定义*/
 /* 整体颜色 */
@@ -83,63 +84,63 @@ Component({
 
 	methods: {
 		_init: function () {
-			calendarLib.getNowTime(this);
-			calendarLib.createDay(this);
+			getNowTime(this);
+			createDay(this);
 		},
 
 
 		bindFoldTap: function (e) { // 日历折叠
-			calendarLib.bindFoldTap(this);
+			bindFoldTap(this);
 		},
 
 
 		bindNextTap(e) { // 下月
-			calendarLib.bindNextTap(this);
+			bindNextTap(this);
 		},
 
 		bindLastTap(e) { // 上月
-			calendarLib.bindLastTap(this);
+			bindLastTap(this);
 		},
 
 		bindDayOneTap(e) { // 单个天点击
 			let day = e.currentTarget.dataset.fullday;
-			let now = timeHelper.time('Y-M-D');
+			let now = time('Y-M-D');
 			if (day < now)
-				return pageHelper.showNoneToast('已过期', 1000);
+				return showNoneToast('已过期', 1000);
 
-			calendarLib.bindDayOneTap(e, this);
+			bindDayOneTap(e, this);
 		},
 
 		bindDayMultiTap(e) { // 多选天点击
 			// 过期时间判断
 			if (!this.data.selectTimeout) {
 				let day = e.currentTarget.dataset.fullday;
-				let now = timeHelper.time('Y-M-D');
+				let now = time('Y-M-D');
 				if (day < now)
-					return pageHelper.showNoneToast(this.data.selectTimeoutHint);
+					return showNoneToast(this.data.selectTimeoutHint);
 			}
 
 
-			calendarLib.bindDayMultiTap(e, this);
+			bindDayMultiTap(e, this);
 		},
 
 		bindToNowTap: function (e) { // 回本月
-			calendarLib.bindToNowTap(this);
+			bindToNowTap(this);
 		},
 
 		// ListTouch触摸开始
 		listTouchStart(e) {
-			pageHelper.listTouchStart(e, this);
+			listTouchStart(e, this);
 		},
 
 		// ListTouch计算方向
 		listTouchMove(e) {
-			pageHelper.listTouchMove(e, this);
+			listTouchMove(e, this);
 		},
 
 		/** ListTouch计算滚动 */
 		listTouchEnd: function (e) {
-			calendarLib.listTouchEnd(this);
+			listTouchEnd(this);
 		}
 	}
 })

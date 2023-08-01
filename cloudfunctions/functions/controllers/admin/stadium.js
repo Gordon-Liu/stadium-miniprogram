@@ -1,6 +1,6 @@
 const AdminController = require('../../framework/admin-controller.js');
 const AdminStadiumService = require('../../services/admin/stadium.js');
-const cacheUtil = require('../../framework/cache.js');
+const cacheUtil = require('../../framework/cache-util.js');
 const timeUtil = require('../../framework/time-util.js');
 const LogModel = require('../../models/log.js');
 

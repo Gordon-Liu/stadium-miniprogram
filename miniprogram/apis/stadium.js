@@ -22,4 +22,16 @@ export default class StadiumApi {
             timeMark
         });
     }
+
+    static getListHasDay(day) {
+        return this.client.request('/stadium/list/has/day', {
+            day
+        });
+    }
+
+    static getListByDay(day) {
+        return this.client.request('/stadium/list/by/day', {
+            day
+        });
+    }
 }

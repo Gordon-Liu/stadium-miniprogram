@@ -1,2 +1,35 @@
 <!--pages/calendar/calendar.wxml-->
-<text>pages/calendar/calendar.wxml</text>
+<view wx:if="{{isLoad===null}}" class="margin-top load notexist text-l load-project"></view>
+<view wx:if="{{isLoad===false}}" class="margin-top load loading text-l load-project"></view>
+
+<view class="main" wx:if="{{isLoad}}">
+    <view class="plan-date">
+        <cmpt-calendar
+            mode="one"
+            hasDays="{{hasDays}}" 
+            bind:click="bindClickCmpt"
+            bind:monthChange="bindMonthChangeCmpt" />
+    </view>
+
+    <view class="list padding-project">
+        <view wx:if="{{list===null}}" class="load loading text-l text-grey"></view>
+        <text wx:elif="{{list.length==0}}" class="no-project icon-emoji text-l text-grey"> 本日没有可预约的项目哦~</text>
+        <view 
+            class="item card-project shadow-project"
+            wx:for="{{list}}"
+            wx:key="key"
+            bindtap="bindJumpUrl"
+            data-url="/pages/stadium/detail/detail?id={{item.id}}">
+            <view wx:if="{{index%4==0}}" class="left bg-blue"></view>
+            <view wx:elif="{{index%4==1}}" class="left bg-green"></view>
+            <view wx:elif="{{index%4==2}}" class="left bg-orange"></view>
+            <view wx:else class="left bg-cyan"></view>
+            <block wx:if="{{item.pic}}">
+                <image class="img loading" src="{{item.pic}}" lazy-load="{{true}}" mode="aspectFill" />
+            </block>
+            <view class="title text-cut">{{item.title}}</view>
+            <view class="time"><text class="icon-time margin-right-xxs"></text>{{item.timeDesc}}</view>
+        </view>
+
+    </view>
+</view>

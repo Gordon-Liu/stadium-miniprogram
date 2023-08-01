@@ -1,66 +1,71 @@
 // pages/calendar/calendar.js
-Page({
+import { ApiCode } from '../../apis/cloud';
+import StadiumApi from '../../apis/stadium';
+import { time } from '../../utils/time';
 
-    /**
-     * 页面的初始数据
-     */
+Component({
     data: {
+        isLoad: false,
+		list: [],
 
+		day: '',
+		hasDays: []
     },
+    methods: {
+        bindJumpUrl (e) {
+            wx.navigateTo({
+                url: e.currentTarget.dataset.url,
+            });
+        },
+        async bindClickCmpt (e) {
+			let day = e.detail.day;
+			this.setData({
+				day
+			}, async () => {
+				await this.getList();
+			})
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad(options) {
+		},
+		bindMonthChangeCmpt (e) {
+			console.log(e.detail)
+		},
+        async getHasList() {
+            
+            const res = await StadiumApi.getListHasDay(time('Y-M-D'));
+            if (res.code == ApiCode.SUCCESS) {
+                this.setData({
+                    hasDays: res.data,
+                });
+            }
+        },
+        async getList() {
 
+            const res = await StadiumApi.getListByDay(this.data.day);
+            if (res.code == ApiCode.SUCCESS) {
+                this.setData({
+                    list: res.data,
+                    isLoad: true
+                });
+            } else {
+                this.setData({
+                    isLoad: null
+                })
+            }
+        },
+        async onPullDownRefresh() {
+			await this.getHasList();
+			await this.getList();
+			wx.stopPullDownRefresh();
+		},
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
+    lifetimes: {
+        attached() {
+            this.setData({
+				day: time('Y-M-D')
+			}, async () => {
+				await this.getHasList();
+				await this.getList();
+			});
+        }
     }
 })

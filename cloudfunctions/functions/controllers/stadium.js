@@ -1,6 +1,11 @@
 const Controller = require('../framework/controller.js');
 const StadiumService = require('../services/stadium.js');
 const timeUtil = require('../framework/time-util.js');
+const cacheUtil = require('../framework/cache-util.js');
+const config = require('../config.js');
+
+const CACHE_CALENDAR_INDEX = 'cache_calendar_index';
+const CACHE_CALENDAR_HAS_DAY = 'cache_calendar_has_day';
 
 class StadiumController extends Controller {
 
@@ -91,6 +96,55 @@ class StadiumController extends Controller {
 		}
 
 		return stadium;
+    }
+    
+    /** 按天获取预约项目 */
+	async getListByDay() {
+
+		// 数据校验
+		const rules = {
+			day: 'must|date|name=日期',
+		};
+
+		// 取得数据
+		const params = this.validateData(rules);
+
+		const cacheKey = CACHE_CALENDAR_INDEX + '_' + params.day;
+		const list = await cacheUtil.get(cacheKey);
+		if (list) {
+			return list;
+		} else {
+			const service = new StadiumService();
+			const list = await service.getListByDay(params.day);
+			cacheUtil.set(cacheKey, list, config.CACHE_CALENDAR_TIME);
+			return list;
+		}
+
+	}
+
+	/** 获取从某天开始可预约的日期 */
+	async getListHasDay() {
+
+		// 数据校验
+		const rules = {
+			day: 'must|date|name=日期',
+		};
+
+		// 取得数据
+		const params = this.validateData(rules);
+
+
+		const cacheKey = CACHE_CALENDAR_HAS_DAY + '_' + params.day;
+		const list = await cacheUtil.get(cacheKey);
+		if (list) {
+			return list;
+		} else {
+			const service = new StadiumService();
+			const list = await service.getListHasDay(params.day);
+			cacheUtil.set(cacheKey, list, config.CACHE_CALENDAR_TIME);
+			return list;
+		}
+
 	}
     
     // 计算可约天数

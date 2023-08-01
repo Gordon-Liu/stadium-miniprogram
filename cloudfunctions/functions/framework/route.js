@@ -3,6 +3,8 @@ module.exports = {
     '/stadium/detail': 'stadium@getDetail',
     '/stadium/before/reservation': 'stadium@beforeReservation',
     '/stadium/detail/for/reservation': 'stadium@getDetailForReservation',
+    '/stadium/list/has/day': 'stadium@getListHasDay',
+    '/stadium/list/by/day': 'stadium@getListByDay',
 
     '/reservation/my/list': 'reservation@getMyList',
     '/reservation/my/someday': 'reservation@getMySomeday',

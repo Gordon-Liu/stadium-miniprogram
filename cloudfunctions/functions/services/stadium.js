@@ -360,8 +360,84 @@ class StadiumService extends Service {
 		stadium.forms = forms;
 
 		return stadium;
+    }
+    
+    /** 按天获取预约项目 */
+	async getListByDay(day) {
+		const where = {
+			status: StadiumModel.STATUS.COMM,
+		};
+
+		const orderBy = {
+			'order': 'asc',
+			'add_time': 'desc'
+		};
+
+		const fields = '*';
+
+		const list = await StadiumModel.getAll(where, fields, orderBy);
+
+		const retList = [];
+
+		for (let k in list) {
+			const usefulTimes = await this.getUsefulTimesByDaysSet(list[k].id, day);
+
+			if (usefulTimes.length == 0) continue;
+
+			const node = {};
+			node.timeDesc = usefulTimes.length > 1 ? usefulTimes.length + '个时段' : usefulTimes[0].start;
+			node.title = list[k].title;
+			node.pic = list[k].style_set.pic;
+			node.id = list[k].id;
+			retList.push(node);
+
+		}
+		return retList;
 	}
 
+	/** 获取从某天开始可预约的日期 */
+	async getListHasDay(day) {
+		const where = {
+			day: ['>=', day],
+		};
+
+		const fields = 'times,day';
+		const list = await DayModel.getAllBig(where, fields);
+
+		const retList = [];
+		for (let k in list) {
+			for (let n in list[k].times) {
+				if (list[k].times[n].status == 1) {
+					retList.push(list[k].day);
+					break;
+				}
+			}
+		}
+		return retList;
+	}
+
+    /** 获取某天可用时段 */
+	async getUsefulTimesByDaysSet(stadiumId, day) {
+		const where = {
+			stadium_id: stadiumId,
+			day
+		}
+		const daysSet = await DayModel.getAll(where, 'day,times');
+		const usefulTimes = [];
+		for (let k in daysSet) {
+			if (daysSet[k].day != day)
+				continue;
+
+			const times = daysSet[k].times;
+			for (let j in times) {
+				if (times[j].status != 1) continue;
+				usefulTimes.push(times[j]);
+			}
+			break;
+
+		}
+		return usefulTimes;
+	}
 }
 
 module.exports = StadiumService;
