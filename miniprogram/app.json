@@ -3,8 +3,10 @@
         "pages/home/home",
         "pages/calendar/calendar",
         "pages/my/my",
-        "pages/stadium/stadium",
-        "pages/news/news",
+        "pages/stadium/list/list",
+        "pages/news/sports/sports",
+        "pages/news/stadium/stadium",
+        "pages/news/detail/detail",
         "pages/admin/login/login",
         "pages/admin/home/home",
         "pages/admin/news/add/add",
@@ -15,8 +17,10 @@
         "pages/admin/stadium/cover/cover",
         "pages/admin/stadium/time/time",
         "pages/admin/stadium/content/content",
+        "pages/admin/stadium/temp/temp",
         "cmpts/public/form/form_set/field/form_set_field",
-        "pages/admin/stadium/temp/temp"
+        "pages/stadium/detail/detail",
+        "pages/stadium/reservation/reservation"
     ],
     "window": {
         "backgroundColor": "#F6F6F6",
@@ -38,13 +42,13 @@
                 "selectedIconPath": "/images/icons/tab-bar/home-active.png"
             },
             {
-                "pagePath": "pages/stadium/stadium",
+                "pagePath": "pages/news/stadium/stadium",
                 "text": "场馆动态",
                 "iconPath": "/images/icons/tab-bar/stadium.png",
                 "selectedIconPath": "/images/icons/tab-bar/stadium-active.png"
             },
             {
-                "pagePath": "pages/news/news",
+                "pagePath": "pages/news/sports/sports",
                 "text": "运动常识",
                 "iconPath": "/images/icons/tab-bar/news.png",
                 "selectedIconPath": "/images/icons/tab-bar/news-active.png"

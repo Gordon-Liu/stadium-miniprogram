@@ -1,5 +1,6 @@
 const Controller = require('../framework/controller.js');
 const NewsService = require('../services/news.js');
+const timeUtil = require('../framework/time-util.js');
 
 class NewsController extends Controller {
 
@@ -8,6 +9,10 @@ class NewsController extends Controller {
 
 		const service = new NewsService();
 		const list = await service.getHomeList();
+
+        for (let k in list) {
+			list[k].add_time = timeUtil.timestamp2Time(list[k].add_time, 'Y-M-D');
+		}
 
 		return list;
 	}
@@ -34,6 +39,10 @@ class NewsController extends Controller {
 
 		const service = new NewsService();
 		const result = await service.getList(params);
+
+        for (let k in result.list) {
+			result.list[k].add_time = timeUtil.timestamp2Time(result.list[k].add_time, 'Y-M-D');
+		}
 
 		return result;
 

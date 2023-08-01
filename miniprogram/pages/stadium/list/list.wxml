@@ -1,0 +1,26 @@
+<!--pages/stadium/list/list.wxml-->
+<view wx:if="{{!_params}}" class="margin-top load loading text-l load-project"></view>
+<block wx:else>
+	<cmpt-comm-list
+        type="stadium"
+        _params="{{_params}}"
+        search="{{search}}"
+        _menus="{{}}"
+        _items="{{}}"
+        route="/stadium/list"
+        topBottom="120"
+        isTotalMenu="{{false}}"
+        placeholder="搜索"
+        bind:list="bindCommListListener">
+		<!-- List Begin -->
+		<import src="../../../templates/list.wxml" />
+		<template is="listTemplate" data="{{dataList:dataList.list,listMode,listType:'stadium'}}" />
+		<!-- List END -->
+ 
+		<!--load begin-->
+		<import src="../../../templates/list-load.wxml" />
+		<template is="listLoadTemplate" data="{{skin:'load-project',dataList}}" />
+		<!--load end-->
+ 
+	</cmpt-comm-list>
+</block>

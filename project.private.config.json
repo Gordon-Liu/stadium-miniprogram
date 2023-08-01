@@ -79,6 +79,27 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/admin/stadium/temp/temp",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/stadium/detail/detail",
+                    "query": "id=20230730195217660",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/stadium/reservation/reservation",
+                    "query": "id=20230730212237221&timeMark=T20230731AAAHMZTKIBKCG",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

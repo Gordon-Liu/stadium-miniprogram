@@ -1,0 +1,3 @@
+/* pages/news/detail/detail.wxss */
+@import "../../../styles/detail.wxss"; 
+@import "../../../styles/base.wxss"; 

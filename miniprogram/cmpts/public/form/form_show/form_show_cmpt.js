@@ -1,8 +1,7 @@
-const pageHelper = require('../../../../helper/page_helper.js');
-const cloudHelper = require('../../../../helper/cloud_helper.js');
-const cacheHelper = require('../../../../helper/cache_helper.js');
-const formSetHelper = require('../form_set_helper.js');
-const validate = require('../../../../helper/validate.js');
+import { dataset } from '../../../../utils/util';
+import { get, set } from '../../../../utils/cache';
+import { checkForm } from '../form_set_helper';
+import { checkYear, checkYearMonth, checkDate, checkHourMinute, checkInt, checkDigit } from '../../../../utils/validate';
 
 const CACHE_FORM_SHOW_KEY = 'FORM_SHOW_CMPT';
 const CACHE_FORM_SHOW_TIME = 86400 * 365;
@@ -124,7 +123,7 @@ Component({
 
 
 			// **** 对缓存匹配
-			let caches = cacheHelper.get(CACHE_FORM_SHOW_KEY);
+			let caches = get(CACHE_FORM_SHOW_KEY);
 			if (caches && Array.isArray(caches) && !ret) {
 				for (let k in caches) {
 					if (caches[k].mark == mark) { // 优先匹配mark
@@ -177,27 +176,27 @@ Component({
 					break;
 				}
 				case 'year': {
-					if (!val || validate.checkYear(val)) return '';
+					if (!val || checkYear(val)) return '';
 					break;
 				}
 				case 'month': {
-					if (!val || validate.checkYearMonth(val)) return '';
+					if (!val || checkYearMonth(val)) return '';
 					break;
 				}
 				case 'date': {
-					if (!val || validate.checkDate(val)) return '';
+					if (!val || checkDate(val)) return '';
 					break;
 				}
 				case 'hourminute': {
-					if (!val || validate.checkHourMinute(val)) return '';
+					if (!val || checkHourMinute(val)) return '';
 					break;
 				}
 				case 'number': { // 整数(字符形式)
-					if (!val || validate.checkInt(val)) return '';
+					if (!val || checkInt(val)) return '';
 					break;
 				}
 				case 'digit': { // 小数(字符形式)
-					if (!val || validate.checkDigit(val)) return '';
+					if (!val || checkDigit(val)) return '';
 					break;
 				}
 				default: {
@@ -222,37 +221,37 @@ Component({
 		},
 
 		bindLineBlur: function (e) {
-			let idx = pageHelper.dataset(e, 'idx');
+			let idx = dataset(e, 'idx');
 			let val = e.detail.value.trim(); 
 			this._setForm(idx, val);
 		},
 
 		bindDayChange: function (e) {
-			let idx = pageHelper.dataset(e, 'idx');
+			let idx = dataset(e, 'idx');
 			let val = e.detail.value.trim();
 			this._setForm(idx, val);
 		},
 
 		bindAreaChange: function (e) {
-			let idx = pageHelper.dataset(e, 'idx');
+			let idx = dataset(e, 'idx');
 			let val = e.detail.value;
 			this._setForm(idx, val);
 		},
 
 		bindSelectCmpt: function (e) {
-			let idx = pageHelper.dataset(e, 'idx');
+			let idx = dataset(e, 'idx');
 			let val = e.detail.trim();
 			this._setForm(idx, val);
 		},
 
 		bindCheckBoxCmpt: function (e) {
-			let idx = pageHelper.dataset(e, 'idx');
+			let idx = dataset(e, 'idx');
 			let val = e.detail;
 			this._setForm(idx, val);
 		},
 
 		switchModel: function (e) {
-			let idx = pageHelper.dataset(e, 'idx');
+			let idx = dataset(e, 'idx');
 			let val = e.detail.value;
 			this._setForm(idx, val);
 		},
@@ -267,19 +266,19 @@ Component({
 				let opt = {
 					title: '手机验证中'
 				};
-				await cloudHelper.callCloudSumbit('passport/phone', params, opt).then(res => {
-					let phone = res.data;
-					if (!phone || phone.length < 11)
-						wx.showToast({
-							title: '手机号码获取失败，请重新绑定手机号码',
-							icon: 'none',
-							duration: 2000
-						});
-					else {
-						let idx = pageHelper.dataset(e, 'idx');
-						this._setForm(idx, phone);
-					}
-				});
+				// await cloudHelper.callCloudSumbit('passport/phone', params, opt).then(res => {
+				// 	let phone = res.data;
+				// 	if (!phone || phone.length < 11)
+				// 		wx.showToast({
+				// 			title: '手机号码获取失败，请重新绑定手机号码',
+				// 			icon: 'none',
+				// 			duration: 2000
+				// 		});
+				// 	else {
+				// 		let idx = dataset(e, 'idx');
+				// 		this._setForm(idx, phone);
+				// 	}
+				// });
 			} else
 				wx.showToast({
 					title: '手机号码获取失败，请重新绑定手机号码',
@@ -290,10 +289,10 @@ Component({
 		checkForms: function () {
 			// 写缓存
 			if (this.data.isCacheMatch) {
-				cacheHelper.set(CACHE_FORM_SHOW_KEY, this.data.forms, CACHE_FORM_SHOW_TIME);
+				set(CACHE_FORM_SHOW_KEY, this.data.forms, CACHE_FORM_SHOW_TIME);
 			}
 
-			let ret = formSetHelper.checkForm(this.data.fields, this.data.forms);
+			let ret = checkForm(this.data.fields, this.data.forms);
 
 			this.setData({
 				fields: this.data.fields

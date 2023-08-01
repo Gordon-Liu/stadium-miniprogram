@@ -1,9 +1,11 @@
 <!--pages/admin/news/list/list.wxml-->
 <block wx:if="{{isAdmin}}">
 	<cmpt-comm-list
-        type="admin-news" search="{{search}}"
+        type="admin-news"
+        search="{{search}}"
         _menus="{{sortMenus}}"
         _items="{{sortItems}}"
+        _client="admin"
         route="/admin/news/list"
         sortMenusDefaultIndex="0"
         topBottom="50"

@@ -6,7 +6,9 @@ export default Behavior({
 	data: {
         search: '',
         sortType: '',
-        dataList: null
+        dataList: null,
+        sortMenus: [],
+        sortMenus: [],
 	},
 	methods: {
          /**

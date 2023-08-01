@@ -1,0 +1,7 @@
+{
+    "usingComponents": {},
+    "disableScroll": true, 
+    "navigationBarTitleText": "场馆动态",
+    "navigationBarBackgroundColor": "#24C68A",
+    "navigationBarTextStyle": "white"
+}

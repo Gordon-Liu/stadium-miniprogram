@@ -1,6 +1,7 @@
 const Service = require('../../framework/service.js');
 const StadiumModel = require('../../models/stadium.js');
 const DayModel = require('../../models/day.js');
+const ReservationModel = require('../../models/reservation.js');
 const timeUtil = require('../../framework/time-util.js'); 
 const util = require('../../framework/util');
 
@@ -95,7 +96,17 @@ class AdminStadiumService extends Service {
             style_set: styleSet,
             admin_id: adminId
         };
+
+        if (daysSet) {
+            const days = [];
+            for (let k in daysSet) {
+                days.push(daysSet[k].day);
+            }
+            data.days = days;
+        }
+
         const id = await StadiumModel.insert(data);
+        
         if (daysSet) {
             const dataArray = [];
             for (let k in daysSet) {
@@ -109,7 +120,7 @@ class AdminStadiumService extends Service {
             await DayModel.insertBatch(dataArray);
         }
         
-		return id
+		return id;
 	}
 
     /**更新数据 */
@@ -143,9 +154,9 @@ class AdminStadiumService extends Service {
 	}
     
     /** 获取日期设置 */
-	async getDaysSet(meetId, startDay, endDay = null) {
+	async getDaysSet(stadiumId, startDay, endDay = null) {
 		const where = {
-			stadium_id: meetId
+			stadium_id: stadiumId
 		}
 		if (startDay && endDay && endDay == startDay)
 			where.day = startDay;
@@ -162,7 +173,8 @@ class AdminStadiumService extends Service {
 		const list = await DayModel.getAllBig(where, 'day,dayDesc,times', orderBy, 1000);
 
 		return list;
-	}
+    }
+
 }
 
 module.exports = AdminStadiumService;

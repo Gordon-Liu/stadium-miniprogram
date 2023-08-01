@@ -7,5 +7,8 @@ module.exports = {
     
     // ## 缓存相关 
 	IS_CACHE: true, //是否开启缓存
-	CACHE_CALENDAR_TIME: 60 * 30, //日历缓存   
+    CACHE_CALENDAR_TIME: 60 * 30, //日历缓存   
+    
+    // #### 预约相关
+	STADIUM_LOG_LEVEL: 'debug',
 }

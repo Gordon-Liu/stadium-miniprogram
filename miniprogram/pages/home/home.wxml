@@ -8,13 +8,13 @@
             <view
                 wx:for="{{menu}}"
                 wx:key="key"
-                bindtap="url"
-                data-url="../../news/index/news_index?id={{index}}" class="item">
+                bindtap="bindJumpMenu"
+                data-item="{{item}}" class="item">
                 <view class="item-inner">
                     <view class="img">
                         <image src="/images/icons/menu/menu-{{index}}.png" />
                     </view>
-                    <view class="title">{{item}}</view>
+                    <view class="title">{{item.label}}</view>
                 </view>
             </view>
         </view>
@@ -22,7 +22,7 @@
         <!-- List Begin -->
         <view wx:if="{{!dataList}}" class="margin-top load loading text-l load-project"></view>
         <import src="../../templates/list.wxml" />
-        <template is="baseListTemplate" data="{{dataList: dataList,listMode : 'leftbig3'}}" />
+        <template is="listTemplate" data="{{dataList: dataList,listMode : 'leftbig3'}}" />
         <!-- List END -->
     </view>
 </view>

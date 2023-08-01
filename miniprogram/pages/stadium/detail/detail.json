@@ -1,0 +1,7 @@
+{
+    "usingComponents": {},
+    "enablePullDownRefresh": true, 
+    "navigationBarTitleText": "预约详情",
+    "navigationBarBackgroundColor": "#24C68A",
+    "navigationBarTextStyle": "white"
+}

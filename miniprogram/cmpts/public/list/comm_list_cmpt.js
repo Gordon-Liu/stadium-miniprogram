@@ -1,6 +1,6 @@
 import { isDefined } from '../../../utils/util';
 import { isCacheList, setCacheList } from '../../../utils/cache-list';
-import { AdminClient } from '../../../apis/cloud';
+import { Client, AdminClient } from '../../../apis/cloud';
 
 Component({
 	options: {
@@ -116,7 +116,10 @@ Component({
 			type: Array, // 下拉菜单展示模式 list/modal 每个菜单一个
 			value: ['list', 'list', 'list', 'list', 'list', 'list']
 		},
-
+        _client: {
+            type: String, // 
+			value: 'default'
+        }
 	},
 
 	/**
@@ -227,9 +230,9 @@ Component({
 			}
 
 
-            //if (this.data._dataList && this.data._dataList.list && this.data._dataList.list.length > 0)
-            const adminClient = new AdminClient();
-			await adminClient.dataList(this.data._dataList, this.data.route, params, (dataList) => {
+            //if (this.data._dataList && this.data._dataList.list && this.data._dataList.list.length > 0)\
+            const client = this.data._client == 'admin' ? new AdminClient() : new Client();
+			await client.dataList(this.data._dataList, this.data.route, params, (dataList) => {
                 this.setData({
                     _dataList: dataList
                 })

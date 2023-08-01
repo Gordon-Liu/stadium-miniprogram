@@ -16,4 +16,4 @@ export const NEWS_PIC_PATH = 'news/pic/';
 
 // #### 预约相关
 export const STADIUM_CAN_NULL_TIME = false; // 是否允许有无时段的日期保存和展示  
-export const STADIUM_PIC_PATH = 'meet/pic/';
+export const STADIUM_PIC_PATH = 'stadium/pic/';

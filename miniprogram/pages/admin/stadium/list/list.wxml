@@ -1,10 +1,11 @@
 <!--pages/admin/stadium/list/list.wxml-->
 <block wx:if="{{isAdmin}}">
 	<cmpt-comm-list
-        type="admin-meet"
+        type="admin-stadium"
         search="{{search}}"
         _menus="{{sortMenus}}"
         _items="{{sortItems}}"
+        _client="admin"
         route="/admin/stadium/list"
         sortMenusDefaultIndex="0"
         topBottom="50"
@@ -59,7 +60,7 @@
 					</view>
 
 					<view class="oprt">
-						<view bindtap="url" data-url="../edit/admin_meet_edit?id={{item._id}}" class="btn margin-right-s"><text class="icon-settings margin-right-xxs text-blue"></text>设置</view>
+						<view bindtap="url" data-url="/pages/admin/stadium/edit/edit?id={{item._id}}" class="btn margin-right-s"><text class="icon-settings margin-right-xxs text-blue"></text>设置</view>
 
 						<view bindtap="bindRecordSelectTap" data-id="{{item._id}}" data-title="{{item.title}}" class="btn margin-right-s">名单与核销</view>
 

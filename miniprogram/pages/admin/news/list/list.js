@@ -1,14 +1,12 @@
 // pages/admin/news/list/list.js
 import AdminToken from '../../../../utils/admin-token';
-import behavior from '../../../../cmpts/behavior/list';
+import listBehavior from '../../../../cmpts/behavior/list';
 import { loginExpirationConfirm } from '../../../../utils/confirm';
 
 Component({
-    behaviors: [behavior],
+    behaviors: [listBehavior],
     data: {
         isAdmin: false,
-        sortMenus: [],
-        sortMenus: [],
     },
     methods: {
         bindJumpUrl (e) {

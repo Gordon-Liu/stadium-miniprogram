@@ -1,0 +1,11 @@
+/* pages/stadium/list/list.wxss */
+@import '../../../styles/base.wxss';
+@import '../../../styles/list.wxss';
+
+.meet-list-box .item-bigtext .left image {
+	border-radius: 20rpx;
+}
+
+.meet-list-box .item {
+	background-color: #fff !important;
+}

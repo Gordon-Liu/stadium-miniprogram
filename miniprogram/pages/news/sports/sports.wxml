@@ -1,0 +1,27 @@
+<!--pages/news/sports/sports.wxml-->
+<view wx:if="{{!_params}}" class="margin-top load loading text-l load-project"></view>
+<block wx:else>
+	<cmpt-comm-list
+        type="news"
+        search="{{search}}"
+        _params="{{_params}}"
+        _menus="{{sortMenus}}"
+        _items="{{sortItems}}"
+        isTotalMenu="{{false}}"
+        route="/news/list"
+        topBottom="120"
+        placeholder="搜索标题"
+        bind:list="bindCommListListener">
+
+		<!-- List Begin -->
+		<import src="../../../templates/list.wxml" />
+		<template is="listTemplate" data="{{dataList:dataList.list,listMode:'rightpic',listType:'news'}}" />
+		<!-- List END -->
+
+		<!--load begin-->
+		<import src="../../../templates/list-load.wxml" />
+		<template is="listLoadTemplate" data="{{skin:'load-project',dataList}}" />
+		<!--load end-->
+	</cmpt-comm-list>
+</block>
+

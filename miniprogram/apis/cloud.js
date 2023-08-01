@@ -121,23 +121,16 @@ export class Client {
    
         return imgList;
     }
-}
 
-export class AdminClient extends Client {
-    _token() {
-        const admin = AdminToken.getAdmin();
- 		return admin && admin.token ? admin.token : '';
-    }
-
-     /**
-  * 数据列表请求
-  * @param {*} that 
-  * @param {*} listName 
-  * @param {*} route 
-  * @param {*} params 
-  * @param {*} options 
-  * @param {*} isReverse  是否倒序
-  */
+    /**
+     * 数据列表请求
+     * @param {*} that 
+     * @param {*} listName 
+     * @param {*} route 
+     * @param {*} params 
+     * @param {*} options 
+     * @param {*} isReverse  是否倒序
+     */
     async dataList(dataList, route, params, callback, isReverse = false) {
 
         console.log('dataList begin');
@@ -214,5 +207,12 @@ export class AdminClient extends Client {
         });
 
         console.log('dataList END');
+    }
+}
+
+export class AdminClient extends Client {
+    _token() {
+        const admin = AdminToken.getAdmin();
+ 		return admin && admin.token ? admin.token : '';
     }
 }

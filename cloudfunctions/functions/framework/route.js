@@ -1,12 +1,15 @@
 module.exports = {
-    '/stadium/home/list': 'stadium@getHomeList',
+    '/stadium/list': 'stadium@getList',
+    '/stadium/detail': 'stadium@getDetail',
+    '/stadium/before/reservation': 'stadium@beforeReservation',
+    '/stadium/detail/for/reservation': 'stadium@getDetailForReservation',
 
     '/reservation/my/list': 'reservation@getMyList',
     '/reservation/my/someday': 'reservation@getMySomeday',
 
     '/news/list': 'news@getList',
 	'/news/home/list': 'news@getHomeList',
-    '/news/detail': 'news_controller@getDetail', 
+    '/news/detail': 'news@getDetail', 
 
     '/admin/home': 'admin/home@home',
     '/admin/home/login': 'admin/home@login',

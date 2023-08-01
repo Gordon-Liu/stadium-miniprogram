@@ -1,0 +1,3 @@
+/* pages/news/stadium/stadium.wxss */
+@import '../../../styles/base.wxss';
+@import '../../../styles/list.wxss';
