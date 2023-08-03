@@ -1,7 +1,7 @@
-const { ApiCode } = require("../../../apis/cloud");
-const { default: StadiumApi } = require("../../../apis/stadium");
-
 // pages/stadium/reservation/reservation.js
+import { ApiCode } from '../../../apis/cloud';
+import StadiumApi from '../../../apis/stadium';
+
 Component({
     properties: {
         id: String,
@@ -46,29 +46,20 @@ Component({
         },
         async bindSubmitCmpt (e) {
 			const forms = e.detail;
-            let opts = {
-                title: '提交中'
-            }
-            let params = {
-                meetId: this.data.id,
-                timeMark: this.data.timeMark,
-                forms
-            }
-            await cloudHelper.callCloudSumbit('meet/join', params, opts).then(res => {
-                let content = '预约成功！'
-
-                let joinId = res.data.id;
+            const res = await StadiumApi.reservation(this.data.id, this.data.timeMark, forms);
+            if (res.code == ApiCode.SUCCESS) {
+                const reservationId = res.data.id;
                 wx.showModal({
                     title: '温馨提示',
                     showCancel: false,
-                    content,
+                    content: '预约成功！',
                     success() {
-                        wx.reLaunch({
-                            url: pageHelper.fmtURLByPID('/pages/my/reservation/detail/detail?flag=home&id=' + joinId),
+                        wx.redirectTo({
+                          url: '/pages/my/reservation/reservation?id=' + reservationId,
                         });
                     }
                 })
-            });
+            }
 		},
         async getDetail() {
             const id = this.data.id;

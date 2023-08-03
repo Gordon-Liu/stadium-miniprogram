@@ -2,6 +2,8 @@ import { dataset } from '../../../../utils/util';
 import { get, set } from '../../../../utils/cache';
 import { checkForm } from '../form_set_helper';
 import { checkYear, checkYearMonth, checkDate, checkHourMinute, checkInt, checkDigit } from '../../../../utils/validate';
+import UserApi from '../../../../apis/user';
+import { ApiCode } from '../../../../apis/cloud';
 
 const CACHE_FORM_SHOW_KEY = 'FORM_SHOW_CMPT';
 const CACHE_FORM_SHOW_TIME = 86400 * 365;
@@ -257,28 +259,24 @@ Component({
 		},
 
 		bindGetPhoneNumber: async function (e) {
-			if (e.detail.errMsg == "getPhoneNumber:ok") {
+            console.log(e)
+			if (e.detail.errMsg == 'getPhoneNumber:ok') {
 
-				let cloudID = e.detail.cloudID;
-				let params = {
-					cloudID
-				};
-				let opt = {
-					title: '手机验证中'
-				};
-				// await cloudHelper.callCloudSumbit('passport/phone', params, opt).then(res => {
-				// 	let phone = res.data;
-				// 	if (!phone || phone.length < 11)
-				// 		wx.showToast({
-				// 			title: '手机号码获取失败，请重新绑定手机号码',
-				// 			icon: 'none',
-				// 			duration: 2000
-				// 		});
-				// 	else {
-				// 		let idx = dataset(e, 'idx');
-				// 		this._setForm(idx, phone);
-				// 	}
-				// });
+				const cloudID = e.detail.cloudID;
+                const res = await UserApi.getPhone(cloudID);
+                if (res.code == ApiCode.SUCCESS) {
+                    const phone = res.data;
+					if (!phone || phone.length < 11)
+						wx.showToast({
+							title: '手机号码获取失败，请重新绑定手机号码',
+							icon: 'none',
+							duration: 2000
+						});
+					else {
+						const idx = dataset(e, 'idx');
+						this._setForm(idx, phone);
+					}
+                }
 			} else
 				wx.showToast({
 					title: '手机号码获取失败，请重新绑定手机号码',

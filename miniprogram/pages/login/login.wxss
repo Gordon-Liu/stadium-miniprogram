@@ -1,0 +1,16 @@
+/* pages/login/login.wxss */
+@import '../../styles/base.wxss';
+
+.avatar {
+    display: block;
+	height: 120rpx;
+	width: 120rpx;
+	border: 0rpx;
+	border-radius: 50%;
+    margin: 300rpx auto 0 auto;
+}
+
+.btn-base {
+    width: 500rpx;
+    margin-top: 100rpx;
+}

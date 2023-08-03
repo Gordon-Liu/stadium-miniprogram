@@ -7,10 +7,10 @@
             <view class="avatar">
                 <image mode="aspectFit" src="/images/icons/tab-bar/my-active.png" />
             </view>
-            <view class="detail" bindtap="url" data-url="../edit/my_edit">
-                <view class="name text-cut">{{user?user.name:'欢迎回来~~~'}}</view>
+            <view class="detail" bindtap="bindJumpUrl" data-url="/pages/my/edit/edit">
+                <view class="name text-cut">{{user&&user.name?user.name:'欢迎回来~~~'}}</view>
                 <view class="desc">
-                    <view class="text-cut">{{user?'修改个人资料':'马上注册，使用更多功能'}}</view>
+                    <view class="text-cut">{{user?'修改个人资料':'完善资料，使用更多功能'}}</view>
                 </view>
             </view> 
         </view>

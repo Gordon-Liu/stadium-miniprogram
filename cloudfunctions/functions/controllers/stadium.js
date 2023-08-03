@@ -145,6 +145,22 @@ class StadiumController extends Controller {
 			return list;
 		}
 
+    }
+    
+    /** 预约提交 */
+	async reservation() {
+		// 数据校验
+		const rules = {
+			stadiumId: 'must|id',
+			timeMark: 'must|string',
+			forms: 'must|array',
+		};
+
+		// 取得数据
+		const params = this.validateData(rules);
+
+		const service = new StadiumService();
+		return await service.reservation(this._userId, params.stadiumId, params.timeMark, params.forms);
 	}
     
     // 计算可约天数

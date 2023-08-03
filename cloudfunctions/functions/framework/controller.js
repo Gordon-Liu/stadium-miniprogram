@@ -9,7 +9,7 @@ class Controller {
     
         this._token = event.token || '';
         
-        this._userId = openId;
+        this._userId = event.token || '';
     }
 
     /**

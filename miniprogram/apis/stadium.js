@@ -34,4 +34,12 @@ export default class StadiumApi {
             day
         });
     }
+
+    static reservation(stadiumId, timeMark, forms) {
+        return this.client.request('/stadium/reservation', {
+            stadiumId,
+            timeMark,
+            forms
+        });
+    }
 }

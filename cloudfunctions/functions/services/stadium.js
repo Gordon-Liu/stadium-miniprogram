@@ -437,6 +437,107 @@ class StadiumService extends Service {
 
 		}
 		return usefulTimes;
+    }
+    
+    // 预约逻辑
+	async reservation(userId, stadiumId, timeMark, forms) {
+		// 预约时段是否存在
+		const stadiumWhere = {
+			id: stadiumId
+		};
+		const day = this.getDayByTimeMark(timeMark);
+		const stadium = await this.getStadiumOneDay(stadiumId, day, stadiumWhere);
+
+		if (!stadium) {
+			this.AppError('预约时段选择错误1，请重新选择');
+		}
+
+		const daySet = this.getDaySetByTimeMark(stadium, timeMark);
+		if (!daySet)
+			this.AppError('预约时段选择错误2，请重新选择');
+
+        const timeSet = this.getTimeSetByTimeMark(stadium, timeMark);
+		if (!timeSet)
+			this.AppError('预约时段选择错误3，请重新选择');
+
+		// 规则校验
+		await this.checkStadiumRules(userId, stadiumId, timeMark);
+
+
+		const data = {};
+
+		data.user_id = userId;
+
+		data.stadium_id = stadiumId;
+		data.stadium_title = stadium.title;
+		data.stadium_day = daySet.day;
+		data.stadium_time_start = timeSet.start;
+		data.stadium_time_end = timeSet.end;
+		data.stadium_time_mark = timeMark;
+
+		data.start_time = timeUtil.time2Timestamp(daySet.day + ' ' + timeSet.start + ':00');
+
+		data.forms = forms;
+
+		data.status = ReservationModel.STATUS.SUCCESS;
+		data.code = dataUtil.genRandomIntString(15);
+
+		// 入库
+		const reservationId = await ReservationModel.insert(data);
+
+		// 若有手机号码 用户入库
+		let mobile = '';
+		let userName = '';
+		for (let k in forms) {
+			if (!mobile && forms[k].type == 'mobile') {
+				mobile = forms[k].val;
+				continue;
+			} else if (!userName && forms[k].title == '姓名') {
+				userName = forms[k].val;
+				continue;
+			}
+		}
+
+		// 统计
+		this.statReservationCnt(stadiumId, timeMark);
+
+		return {
+			id: reservationId
+		}
+    }
+    
+    // 按时段统计某时段报名情况
+	async statReservationCnt(stadiumId, timeMark) {
+		const whereJoin = {
+			stadium_time_mark: timeMark,
+			stadium_id: stadiumId
+		};
+		const ret = await ReservationModel.groupCount(whereJoin, 'status');
+
+		const stat = { //统计数据
+			succCnt: ret['status_1'] || 0, //1=预约成功,
+			cancelCnt: ret['status_10'] || 0, //10=已取消, 
+			adminCancelCnt: ret['status_99'] || 0, //99=后台取消
+		};
+
+		const whereDay = {
+			stadium_id: stadiumId,
+			day: this.getDayByTimeMark(timeMark)
+		};
+		const day = await DayModel.getOne(whereDay, 'times');
+		if (!day) return;
+
+		let times = day.times;
+		for (let j in times) {
+			if (times[j].mark === timeMark) {
+				let data = {
+					['times.' + j + '.stat']: stat
+				}
+				await DayModel.edit(whereDay, data);
+				return;
+			}
+		}
+
 	}
 }
 

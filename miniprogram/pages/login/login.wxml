@@ -1,0 +1,9 @@
+<!--pages/login/login.wxml-->
+<view>
+    <image class="avatar" mode="aspectFit" src="/images/icons/tab-bar/my-active.png" />
+    <button
+        bindtap="bindLogin"
+        class="btn-base btn-project"
+        style="margin-bottom:100rpx;">小程序自动登录</button>
+</view>
+

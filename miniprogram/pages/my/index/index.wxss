@@ -1,5 +1,5 @@
 /* pages/my/my.wxss */
-@import '../../styles/base.wxss';
+@import '../../../styles/base.wxss';
 
 .main {
 	padding: 0;

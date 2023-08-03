@@ -7,7 +7,7 @@ export default class Token {
         set(CACHE_TOKEN, user);
     }
 
-    static getUser(user) {
-        get(CACHE_TOKEN);
+    static getUser() {
+        return get(CACHE_TOKEN);
     }
 }

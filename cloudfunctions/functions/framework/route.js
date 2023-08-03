@@ -5,6 +5,7 @@ module.exports = {
     '/stadium/detail/for/reservation': 'stadium@getDetailForReservation',
     '/stadium/list/has/day': 'stadium@getListHasDay',
     '/stadium/list/by/day': 'stadium@getListByDay',
+    '/stadium/reservation': 'stadium@reservation',
 
     '/reservation/my/list': 'reservation@getMyList',
     '/reservation/my/someday': 'reservation@getMySomeday',
@@ -13,6 +14,11 @@ module.exports = {
 	'/news/home/list': 'news@getHomeList',
     '/news/detail': 'news@getDetail', 
 
+    '/user/login': 'user@login', 
+    '/user/detail': 'user@getDetail',
+    '/user/edit': 'user@edit',
+    '/user/getPhone': 'user@getPhone',
+    
     '/admin/home': 'admin/home@home',
     '/admin/home/login': 'admin/home@login',
 

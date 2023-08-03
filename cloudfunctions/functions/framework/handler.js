@@ -1,6 +1,6 @@
 const appCode = require('./app-code.js');
 
-function handlerBasic(code, msg = '', data = {}) {
+function handlerBasic(code, msg = '', data = null) {
 	switch (code) {
 		case appCode.SUCCESS:
 			msg = (msg) ? msg + ':ok' : 'ok';

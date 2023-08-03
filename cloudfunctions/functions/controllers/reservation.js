@@ -41,7 +41,8 @@ class ReservationController extends Controller {
 
 		return list;
 
-	}
+    }
+    
 }
 
 module.exports = ReservationController;

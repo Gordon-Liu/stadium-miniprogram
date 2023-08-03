@@ -4,6 +4,7 @@ import StadiumApi from '../../../apis/stadium';
 import { ApiCode } from '../../../apis/cloud';
 import { dataset } from '../../../utils/util';
 import { showModal } from '../../../utils/confirm';
+import Token from '../../../utils/token';
 
 Component({
     properties: {
@@ -38,6 +39,12 @@ Component({
 			})
 		},
         async bindJoin (e) {
+            if (!Token.getUser()) {
+                wx.navigateTo({
+                    url: `/pages/login/login`,
+                });
+            } 
+
 			const dayIdx = dataset(e, 'dayidx');
 			const timeIdx = dataset(e, 'timeidx');
 

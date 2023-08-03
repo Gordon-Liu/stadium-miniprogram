@@ -17,7 +17,8 @@ export const ApiCode = {
 export class Client {
 
     _token() {
- 		return '';
+        const user = Token.getUser();
+        return user && user.id ? user.id : '';
     }
 
     request(route, params = {}) {

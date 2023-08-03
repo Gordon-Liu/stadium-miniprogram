@@ -87,7 +87,7 @@ class ReservationService extends Service {
         };
 
 		return await ReservationModel.getAll(where, fields, orderBy);
-	}
+    }
 }
 
 module.exports = ReservationService;

@@ -1,9 +1,11 @@
 // pages/my/my.js
-import { ApiCode } from '../../apis/cloud';
-import ReservationApi from '../../apis/reservation';
-import { time } from '../../utils/time';
-import { clear } from '../../utils/cache';
-import { showNoneToast } from '../../utils/toast';
+import { ApiCode } from '../../../apis/cloud';
+import ReservationApi from '../../../apis/reservation';
+import { time } from '../../../utils/time';
+import { clear } from '../../../utils/cache';
+import { showNoneToast } from '../../../utils/toast';
+import Token from '../../../utils/token';
+import UserApi from '../../../apis/user';
 
 Component({
     data: {
@@ -11,6 +13,11 @@ Component({
         myTodayList: null
     },
     methods: {
+        bindJumpUrl(e) {
+            wx.navigateTo({
+                url: e.currentTarget.dataset.url,
+            });
+        },
         bindSetting() {
             const itemList = ['清除缓存', '后台管理'];
 			wx.showActionSheet({
@@ -30,6 +37,14 @@ Component({
 				fail: function (res) {}
 			})
         },
+        async getDetail() {
+            const res = await UserApi.getDetail();
+            if (res.code === ApiCode.SUCCESS) {
+                this.setData({
+                    user: res.data
+                });
+            }
+        },
         async getMyTodayList() {
             const res = await ReservationApi.getMySomeday(time('Y-M-D'));
             if (res.code === ApiCode.SUCCESS) {
@@ -41,6 +56,13 @@ Component({
     },
     lifetimes: {
         attached() {
+            if (!Token.getUser()) {
+                wx.navigateTo({
+                    url: `/pages/login/login`,
+                });
+                return;
+            } 
+            this.getDetail();
             this.getMyTodayList();
         }
     }
