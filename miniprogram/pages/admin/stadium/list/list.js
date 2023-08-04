@@ -2,6 +2,7 @@
 import AdminToken from '../../../../utils/admin-token';
 import behavior from '../../../../cmpts/behavior/list';
 import { loginExpirationConfirm } from '../../../../utils/confirm';
+import { dataset } from '../../../../utils/util';
 
 Component({
     behaviors: [behavior],
@@ -15,6 +16,42 @@ Component({
             wx.navigateTo({
                 url: e.currentTarget.dataset.url,
             });
+        },
+        async bindRecordSelect (e) {
+            const itemList = ['预约名单', '导出名单Excel文件', '管理员核销预约码', '用户自助签到码'];
+            const stadiumId = dataset(e, 'id');
+            const title = encodeURIComponent(dataset(e, 'title'));
+    
+            wx.showActionSheet({
+                itemList,
+                success: async res => {
+                    switch (res.tapIndex) {
+                        case 0: { //预约名单 
+                            wx.navigateTo({
+                                url: '/pages/admin/stadium/record/record?stadiumId=' + stadiumId + '&title=' + title,
+                            });
+                            break;
+                        }
+                        case 1: { //导出 
+                            wx.navigateTo({
+                                url: '../export/admin_join_export?meetId=' + meetId + '&title=' + title,
+                            });
+                            break;
+                        }
+                        case 2: { //核验 
+                            this.bindScanTap(e);
+                            break;
+                        }
+                        case 3: { //自助签到码 
+                            pageHelper.showModal('请进入「预约名单->名单」， 查看某一时段的「用户自助签到码」')
+                            break;
+                        }
+                    }
+    
+    
+                },
+                fail: function (res) {}
+            })
         },
         getSearchMenu() {
             this.setData({

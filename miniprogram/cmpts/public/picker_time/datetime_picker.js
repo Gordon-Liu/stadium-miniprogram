@@ -1,9 +1,9 @@
-function withData(param, unit = '') {
+export function withData(param, unit = '') {
 	if (unit) return param;
 	return param < 10 ? '0' + param : '' + param;
 }
 
-function getLoopArray(start, end, unit = '', step = 1) {
+export function getLoopArray(start, end, unit = '', step = 1) {
 	start = start || 0;
 	end = end || 1;
 	start = parseInt(start);
@@ -23,7 +23,7 @@ function getLoopArray(start, end, unit = '', step = 1) {
 	return array;
 }
 
-function getMonthDay(year, month, unit = '') {
+export function getMonthDay(year, month, unit = '') {
 	let flag = year % 400 == 0 || (year % 4 == 0 && year % 100 != 0),
 		array = null;
 	month = withData(parseInt(month));
@@ -52,7 +52,7 @@ function getMonthDay(year, month, unit = '') {
 	return array;
 }
 
-function getNewDateArry() {
+export function getNewDateArry() {
 	// 当前时间的处理
 	let newDate = new Date();
 	let year = withData(newDate.getFullYear()),
@@ -65,7 +65,7 @@ function getNewDateArry() {
 	return [year, mont, date, hour, minu, seco];
 }
 
-function dateTimePicker(startYear, endYear, date, minuStep = 1) {
+export function dateTimePicker(startYear, endYear, date, minuStep = 1) {
 	// 返回默认显示的数组和联动数组的声明
 	let dateTimeIndex = [],
 		dateTimeArray = [
@@ -123,8 +123,4 @@ function dateTimePicker(startYear, endYear, date, minuStep = 1) {
 		dateTimeArray,
 		dateTimeIndex
 	}
-}
-module.exports = {
-	dateTimePicker,
-	getMonthDay
 }

@@ -161,7 +161,7 @@ class StadiumController extends Controller {
 
 		const service = new StadiumService();
 		return await service.reservation(this._userId, params.stadiumId, params.timeMark, params.forms);
-	}
+    }
     
     // 计算可约天数
 	_getLeaveDay(days) {

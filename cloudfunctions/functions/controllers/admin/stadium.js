@@ -129,6 +129,22 @@ class AdminStadiumController extends AdminController {
 
 		return result;
     }
+
+    async getDayList() {
+		await this.isAdmin();
+
+		const rules = {
+			stadiumId: 'must|id',
+			start: 'must|date',
+			end: 'must|date',
+		};
+
+		// 取得数据
+		const params = this.validateData(rules);
+
+		const service = new AdminStadiumService();
+		return await service.getDayList(params.stadiumId, params.start, params.end);
+	}
     
     // 计算可约天数
 	_getLeaveDay(days) {

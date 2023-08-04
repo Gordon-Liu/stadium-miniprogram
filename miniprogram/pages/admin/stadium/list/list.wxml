@@ -24,7 +24,7 @@
 				<view class="header">
 					<view class="left text-cut"><text wx:if="{{item.order==0}}" class="text-black" style="font-weight:normal;font-size:24rpx">[置顶]</text> {{item.title}}
 					</view>
-					<view class="right" bindtap="bindScanTap" data-id="{{item._id}}" data-title="{{item.title}}">
+					<view class="right" bindtap="bindScanTap" data-id="{{item.id}}" data-title="{{item.title}}">
 						<text class="icon-scan"></text>
 					</view>
 				</view>
@@ -60,13 +60,13 @@
 					</view>
 
 					<view class="oprt">
-						<view bindtap="url" data-url="/pages/admin/stadium/edit/edit?id={{item._id}}" class="btn margin-right-s"><text class="icon-settings margin-right-xxs text-blue"></text>设置</view>
+						<view bindtap="url" data-url="/pages/admin/stadium/edit/edit?id={{item.id}}" class="btn margin-right-s"><text class="icon-settings margin-right-xxs text-blue"></text>设置</view>
 
-						<view bindtap="bindRecordSelectTap" data-id="{{item._id}}" data-title="{{item.title}}" class="btn margin-right-s">名单与核销</view>
+						<view bindtap="bindRecordSelect" data-id="{{item.id}}" data-title="{{item.title}}" class="btn margin-right-s">名单与核销</view>
 
-						<view bindtap="bindStatusSelectTap" data-id="{{item._id}}" class="btn   margin-right-s"><text class="icon-cascades margin-right-xxs text-orange"></text>状态</view>
+						<view bindtap="bindStatusSelectTap" data-id="{{item.id}}" class="btn   margin-right-s"><text class="icon-cascades margin-right-xxs text-orange"></text>状态</view>
 
-						<view bindtap="bindMoreSelectTap" data-id="{{item._id}}" class="btn">更多操作</view>
+						<view bindtap="bindMoreSelectTap" data-id="{{item.id}}" class="btn">更多操作</view>
 
 					</view>
 				</view>

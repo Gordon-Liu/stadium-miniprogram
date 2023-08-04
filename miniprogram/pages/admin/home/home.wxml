@@ -21,7 +21,7 @@
 
 	<view class="comm-list grid col-4">
 		<view class="item" bindtap="bindJumpUrl" data-url="/pages/admin/stadium/list/list">{{stadiumCnt||'...'}}<text class="text-black">活动/预约数</text></view>
-		<view class="item" bindtap="bindJumpUrl" data-url="/pages/admin/reservation/list">{{reservationCnt||'...'}}<text class="text-black">用户预约数</text></view>
+		<view class="item" bindtap="bindJumpUrl" data-url="/pages/admin/stadium/reservation/reservation">{{reservationCnt||'...'}}<text class="text-black">用户预约数</text></view>
 		<view class="item" bindtap="bindJumpUrl" data-url="/pages/admin/user/list/list">{{userCnt||'...'}}<text class="text-black">用户</text></view>
 		<view class="item" bindtap="bindJumpUrl" data-url="/pages/admin/news/list/list">{{newsCnt||'...'}}<text class="text-black">文章数</text></view>
 

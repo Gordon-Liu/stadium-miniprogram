@@ -175,6 +175,18 @@ class AdminStadiumService extends Service {
 		return list;
     }
 
+    /** 预约数据列表 */
+	async getDayList(stadiumId, start, end) {
+		const where = {
+			stadium_id: stadiumId,
+			day: ['between', start, end]
+		}
+		const orderBy = {
+			day: 'asc'
+		}
+		return await DayModel.getAllBig(where, '*', orderBy);
+	}
+
 }
 
 module.exports = AdminStadiumService;

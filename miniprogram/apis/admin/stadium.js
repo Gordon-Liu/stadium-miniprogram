@@ -24,4 +24,12 @@ export default class AdminStadiumApi {
             timeMark
         });
     }
+
+    static dayList (stadiumId, start, end) {
+        return this.client.request('/admin/stadium/day/list', {
+            stadiumId,
+            start,
+            end,
+        });
+    }
 }

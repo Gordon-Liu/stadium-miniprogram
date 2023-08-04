@@ -22,7 +22,10 @@
         "pages/admin/stadium/time/time",
         "pages/admin/stadium/content/content",
         "pages/admin/stadium/temp/temp",
-        "cmpts/public/form/form_set/field/form_set_field"
+        "cmpts/public/form/form_set/field/form_set_field",
+        "pages/admin/stadium/reservation/reservation",
+        "pages/admin/stadium/record/record",
+        "pages/admin/user/list/list"
     ],
     "window": {
         "backgroundColor": "#F6F6F6",

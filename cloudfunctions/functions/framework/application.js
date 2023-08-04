@@ -27,7 +27,7 @@ async function application(event, context) {
 		const ControllerClass = require('../controllers/' + controllerName + '.js');
 		const controller = new ControllerClass(route, openId, event);
 
-		// 调用方法    
+        // 调用方法    
 		const result = await controller[actionName]();
 
 		// 返回值处理

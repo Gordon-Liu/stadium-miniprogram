@@ -1,6 +1,7 @@
 const Service = require('../../framework/service.js');
 const AdminModel = require('../../models/admin.js');
 const timeUtil = require('../../framework/time-util.js');
+const appCode = require('../../framework/app-code.js');
 const config = require('../../config.js');
 
 class AdminService extends Service {

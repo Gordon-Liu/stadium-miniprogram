@@ -1,4 +1,4 @@
-const dateTimePicker = require('./datetime_picker.js');
+import { dateTimePicker, getMonthDay } from './datetime_picker';
 
 Component({
 	externalClasses: ['picker-class'],
@@ -125,7 +125,7 @@ Component({
 
 			let mode = this.data.mode;
 
-			let obj = dateTimePicker.dateTimePicker(this.data.startYear, this.data.endYear, this.data.item, this.data.timeModeStep);
+			let obj = dateTimePicker(this.data.startYear, this.data.endYear, this.data.item, this.data.timeModeStep);
 			let idx = obj.dateTimeIndex;
 			let arr = obj.dateTimeArray;
 
@@ -189,7 +189,7 @@ Component({
 			if (mode != 'year' && mode != 'month' && mode != 'minute') {
 				let year = (multiArray[0][multiIndex[0]]).replace('年', '');
 				let month = (multiArray[1][multiIndex[1]]).replace('月', '');
-				multiArray[2] = dateTimePicker.getMonthDay(year, month, '日');
+				multiArray[2] = getMonthDay(year, month, '日');
 			}
 
 

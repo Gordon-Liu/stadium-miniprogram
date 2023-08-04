@@ -35,10 +35,17 @@ module.exports = {
     '/admin/stadium/list': 'admin/stadium@getList',
     '/admin/stadium/insert': 'admin/stadium@insert',
     '/admin/stadium/edit': 'admin/stadium@edit',
+    '/admin/stadium/day/list': 'admin/stadium@getDayList',
 
     // admin temp controller
     '/admin/temp/list': 'admin/temp@getList',
     '/admin/temp/insert': 'admin/temp@insert',
     '/admin/temp/edit': 'admin/temp@edit',
     '/admin/temp/delete': 'admin/temp@delete',
+
+    // admin reservation controller
+    '/admin/reservation/list': 'admin/reservation@getList',
+
+    // admin user controller
+    '/admin/user/list': 'admin/user@getList'
 };

@@ -612,6 +612,7 @@ class Model {
 	 * @param {*} val 
 	 */
 	static getDesc(enumName, val) {
+        enumName = enumName.toLocaleUpperCase();
 		let baseEnum = this[enumName];
 		let descEnum = this[enumName + '_DESC']
 		let enumKey = '';
