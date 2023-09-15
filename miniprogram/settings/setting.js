@@ -1,5 +1,5 @@
 //### 环境相关 
-export const CLOUD_ID = 'dev-6gf41ovl6f869985'; //你的云环境id 
+export const CLOUD_ID = 'lgd-dev-1gz7qcgf24f666b0'; //你的云环境id 
 
 // #### 后台相关
 export const ADMIN_TOKEN_EXPIRE = 3600 * 2; //管理员过期时间2小时有效 秒  

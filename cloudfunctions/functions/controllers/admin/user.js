@@ -1,8 +1,8 @@
 const AdminController = require('../../framework/admin-controller.js');
 const AdminUserService = require('../../services/admin/user.js');
 const timeUtil = require('../../framework/time-util.js');
-const dataUtil = require('../../framework/data-util.js');
 const UserModel = require('../../models/user.js');
+const LogModel = require('../../models/log.js');
 
 class AdminUserController extends AdminController {
 
@@ -41,6 +41,29 @@ class AdminUserController extends AdminController {
 		return result;
 	} 
     
+    /** 删除用户 */
+	async delete() {
+		await this.isAdmin();
+
+		// 数据校验
+		const rules = {
+			id: 'required|id',
+		};
+
+		// 取得数据
+		const params = this.validateData(rules);
+
+
+        const service = new AdminUserService();
+        
+        const user = await service.getDetail(params.id);
+        const name = user.name;
+
+		await service.delete(params.id);
+
+		this.log('删除了客户「' + name + '」', LogModel.TYPE.USER);
+
+	}
 }
 
 module.exports = AdminUserController;

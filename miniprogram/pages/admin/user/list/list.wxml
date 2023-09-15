@@ -14,7 +14,7 @@
         sortMenusDefaultIndex="0">
 
 		<view slot="searchEnd">
-			<button bindtap="url" data-url="../export/admin_user_export?condition={{dataList.condition}}" class="btn mid radius bg-admin text-white margin-right-s"><text class="icon-down margin-right-xxs"></text>导出用户资料</button>
+			<button bindtap="bindJumpUrl" data-url="/pages/admin/user/export/export?condition={{dataList.condition}}" class="btn mid radius bg-admin text-white margin-right-s"><text class="icon-down margin-right-xxs"></text>导出用户资料</button>
 		</view>
 
 		<!-- List Begin -->
@@ -63,7 +63,7 @@
 
 					<view class="oprt">
 
-						<view bindtap="bindDelTap" data-id="{{item.mini_openid}}" class="btn  margin-right-s"><text class="icon-delete margin-right-xxs text-orange"></text>删除</view>
+						<view bindtap="bindDelTap" data-id="{{item.id}}" class="btn  margin-right-s"><text class="icon-delete margin-right-xxs text-orange"></text>删除</view>
 
 					</view>
 				</view>
@@ -75,7 +75,6 @@
 		<import src="../../../../templates/list-load.wxml" />
 		<template is="listLoadTemplate" data="{{dataList,skin:'text-grey'}}" />
 		<!--load end-->
-
 
 	</cmpt-comm-list>
 

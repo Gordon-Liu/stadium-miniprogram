@@ -40,7 +40,9 @@ class AdminUserService extends Service {
 			// 搜索菜单
 			switch (sortType) {
 				case 'status':
-					where.and.status = Number(sortVal);
+					where.and = {
+                        status: Number(sortVal)
+                    };
 					break;
 				// case 'companyDef':
 				// 	// 单位性质 
@@ -68,6 +70,29 @@ class AdminUserService extends Service {
 		result.condition = encodeURIComponent(JSON.stringify(where));
 
 		return result;
+    }
+    
+    /** 取得用户详情 */
+    async getDetail(userId) {
+        const fields = '*';
+
+		const where = {
+			id: userId,
+        }
+        
+        const user = await UserModel.getOne(where, fields);
+
+        if (!user) return null;
+
+        return user;
+    }
+
+    /**删除用户 */
+	async delete(id) {
+		const where = {
+            id
+        };
+		return await UserModel.del(where)
 	}
 }
 

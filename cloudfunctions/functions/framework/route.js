@@ -47,5 +47,10 @@ module.exports = {
     '/admin/reservation/list': 'admin/reservation@getList',
 
     // admin user controller
-    '/admin/user/list': 'admin/user@getList'
+    '/admin/user/list': 'admin/user@getList',
+    '/admin/user/delete': 'admin/user@delete',
+
+    // admin export controller
+    '/admin/export/user_data_get': 'admin/export@userDataGet',
+    '/admin/export/user_data_export': 'admin/export@userDataExport'
 };

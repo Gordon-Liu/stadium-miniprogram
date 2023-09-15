@@ -2,6 +2,10 @@
 import AdminToken from '../../../../utils/admin-token';
 import listBehavior from '../../../../cmpts/behavior/list';
 import { loginExpirationConfirm } from '../../../../utils/confirm';
+import { showSuccessToast } from '../../../../utils/toast';
+import { dataset } from '../../../../utils/util';
+import AdminUserApi from '../../../../apis/admin/user';
+import { ApiCode } from '../../../../apis/cloud';
 
 Component({
     behaviors: [listBehavior],
@@ -9,6 +13,27 @@ Component({
         isAdmin: false,
     },
     methods: {
+        bindJumpUrl (e) {
+            wx.navigateTo({
+                url: e.currentTarget.dataset.url,
+            });
+        },
+        async bindDelTap(e) {
+            const id = dataset(e, 'id');
+
+            const res = await AdminUserApi.delete(id);
+            if (res.code === ApiCode.SUCCESS) {
+                const index = this.data.dataList.list.findIndex(item => item.id == id);
+                if (index >= 0) {
+                    this.data.dataList.list.splice(index, 1);
+                    this.data.dataList.total--;
+                    this.setData({
+                        dataList: this.data.dataList
+                    });
+                }
+                showSuccessToast('删除成功');
+            }
+        },
         getSearchMenu() {
             const sortItems = [];
             const sortMenus = [{

@@ -25,7 +25,8 @@
         "cmpts/public/form/form_set/field/form_set_field",
         "pages/admin/stadium/reservation/reservation",
         "pages/admin/stadium/record/record",
-        "pages/admin/user/list/list"
+        "pages/admin/user/list/list",
+        "pages/admin/user/export/export"
     ],
     "window": {
         "backgroundColor": "#F6F6F6",

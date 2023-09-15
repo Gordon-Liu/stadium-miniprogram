@@ -14,6 +14,13 @@ class Service {
 	 */
 	AppError(msg, code = appCode.LOGIC) {
 		throw new AppError(msg, code);
+    }
+    
+    getProjectId() {
+		if (global.PID)
+			return global.PID;
+		else
+			return 'unknow';
 	}
 }
 
