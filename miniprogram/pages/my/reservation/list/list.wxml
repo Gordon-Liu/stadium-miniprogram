@@ -1,0 +1,59 @@
+<!--pages/my/reservation/list/list.wxml-->
+<block>
+    <cmpt-comm-list
+        type="my_reservation"
+        search="{{search}}"
+        _menus="{{sortMenus}}"
+        _items="{{sortItems}}"
+        route="/reservation/my/list"
+        isTotalMenu="{{true}}"
+        sortMenusDefaultIndex="0"
+        topBottom="120"
+        placeholder="搜索标题"
+        bind:list="bindCommListListener">
+
+        <view slot="searchEnd"></view>
+
+        <!-- List Begin -->
+        <view class="text-pic-list-box padding-project">
+
+            <view class="item card-project shadow-project" wx:for="{{dataList.list}}" wx:key="index">
+                <view wx:if="{{item.isTimeout}}" class="status">已结束</view>
+                <view bindtap="bindJumpUrl" data-url="/pages/my/reservation/detail/detail?id={{item.id}}" wx:elif="{{item.status==1}}" class="qr"><text class="icon-qrcode"></text></view>
+                <view class="title content-cut-two" bindtap="bindJumpUrl" data-url="/pages/my/reservation/detail/detail?id={{item.id}}">{{item.stadium_title}}</view>
+                <view class="author" bindtap="bindJumpUrl" data-url="/pages/my/reservation/detail/detail?id={{item.id}}">
+                    <text class="icon-time margin-right-xs text-s"></text><text class="text-cut">{{item.stadium_day}} {{item.stadium_time_start}}～{{item.stadium_time_end}}</text>
+                </view>
+
+                <view class="data" bindtap="bindJumpUrl" data-url="/pages/my/reservation/detail/detail?id={{item.id}}">
+                    <text wx:if="{{item.status==1}}" class="text-green"><text class="icon-newshot margin-right-xxs"></text>预约成功{{item.is_checkin==1?'，已签到':''}}</text>
+
+                    <text wx:elif="{{item.status==10}}" class="text-grey"><text class="icon-bad margin-right-xxs"></text>已取消</text>
+
+                    <block wx:elif="{{item.status==99}}">
+                        <text class="text-orange"><text class="icon-bad margin-right-xxs"></text>系统取消<text class="text-grey" wx:if="{{item.reason}}">：{{item.reason}}</text></text>
+                    </block>
+
+                </view>
+
+                <view class="data data-button">
+                    <button bindtap="bindJumpUrl" data-url="/pages/my/reservation/detail/detail?id={{item.id}}" class="btn mid bg-gray text-black">查看详情</button>
+                    <button wx:if="{{(item.status==1||item.status==0) && item.is_checkin==0}}" bindtap="bindCancelTap" data-id="{{item.id}}" class="btn mid bg-grey light"><text class="icon-close"></text>取消</button>
+                </view>
+
+            </view>
+
+            <!--load begin-->
+            <import src="../../../../templates/list-load.wxml" />
+            <template is="listLoadTemplate" data="{{skin:'load-project',dataList}}" />
+            <!--load end-->
+
+        </view>
+        <!-- List END -->
+
+    </cmpt-comm-list>
+
+    <!--  button Begin -->
+    <!--  button END -->
+
+</block>

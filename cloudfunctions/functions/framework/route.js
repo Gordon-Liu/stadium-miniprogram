@@ -8,6 +8,7 @@ module.exports = {
     '/stadium/reservation': 'stadium@reservation',
 
     '/reservation/my/list': 'reservation@getMyList',
+    '/reservation/my/detail': 'reservation@getMyDetail',
     '/reservation/my/someday': 'reservation@getMySomeday',
 
     '/news/list': 'news@getList',

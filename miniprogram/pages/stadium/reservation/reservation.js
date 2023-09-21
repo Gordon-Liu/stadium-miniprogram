@@ -55,7 +55,7 @@ Component({
                     content: '预约成功！',
                     success() {
                         wx.redirectTo({
-                          url: '/pages/my/reservation/reservation?id=' + reservationId,
+                          url: '/pages/my/reservation/detail/detail?id=' + reservationId,
                         });
                     }
                 })

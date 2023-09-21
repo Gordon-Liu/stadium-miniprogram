@@ -52,8 +52,8 @@
         <view class="comm-list menu card-project shadow-project">
             <view
                 class="item arrow"
-                bindtap="url"
-                data-url="../join/my_join">
+                bindtap="bindJumpUrl"
+                data-url="/pages/my/reservation/list/list">
                 <view class="content">
                     <text class="icon-activityfill my-icon-project text-project"></text>
                     <text class="text-black">我的所有预约</text>
@@ -61,8 +61,8 @@
             </view>
             <view
                 class="item arrow"
-                bindtap="url"
-                data-url="../edit/my_edit">
+                bindtap="bindJumpUrl"
+                data-url="/pages/my/edit/edit">
                 <view class="content">
                     <text class="icon-edit my-icon-project text-green"></text>
                     <text class="text-black">修改我的个人资料</text>

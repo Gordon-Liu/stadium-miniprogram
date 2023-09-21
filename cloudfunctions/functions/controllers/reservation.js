@@ -1,5 +1,7 @@
 const Controller = require('../framework/controller.js');
 const ReservationService = require('../services/reservation.js');
+const ReservationModel = require('../models/reservation.js');
+const timeUtil = require('../framework/time-util.js');
 
 class ReservationController extends Controller {
 
@@ -42,6 +44,26 @@ class ReservationController extends Controller {
 		return list;
 
     }
+
+    /** 我的预约详情 */
+    async getMyDetail() {
+		// 数据校验
+		const rules = {
+			id: 'must|id',
+		};
+
+		// 取得数据
+		const params = this.validateData(rules);
+
+		const service = new ReservationService();
+		const reservation = await service.getMyDetail(this._userId, params.id);
+		if (reservation) {
+			reservation.status_desc = ReservationModel.getDesc('STATUS', reservation.status);
+			reservation.add_time = timeUtil.timestamp2Time(reservation.add_time);
+		}
+		return reservation;
+
+	}
     
 }
 

@@ -12,4 +12,10 @@ export default class ReservationApi {
             day
         });
     }
+
+    static getDetail(id) {
+        return this.client.request('/reservation/my/detail', {
+            id
+        });
+    }
 }

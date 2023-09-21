@@ -88,6 +88,18 @@ class ReservationService extends Service {
 
 		return await ReservationModel.getAll(where, fields, orderBy);
     }
+    
+    /** 取得我的预约详情 */
+	async getMyDetail(userId, id) {
+
+		const fields = '*';
+
+		const where = {
+			id: id,
+			user_id: userId
+		};
+		return await ReservationModel.getOne(where, fields);
+	}
 }
 
 module.exports = ReservationService;

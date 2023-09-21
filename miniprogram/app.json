@@ -26,7 +26,9 @@
         "pages/admin/stadium/reservation/reservation",
         "pages/admin/stadium/record/record",
         "pages/admin/user/list/list",
-        "pages/admin/user/export/export"
+        "pages/admin/user/export/export",
+        "pages/my/reservation/list/list",
+        "pages/my/reservation/detail/detail"
     ],
     "window": {
         "backgroundColor": "#F6F6F6",
